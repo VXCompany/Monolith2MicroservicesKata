@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Warehouse.Infra.Data;
 
 namespace Warehouse.Infra;
@@ -11,9 +12,9 @@ public class WarehouseRepository : IWarehouseRepository
         _dbContext = dbContext;
     }
 
-    public IReadOnlyCollection<Item> GetAll()
+    public async Task<IReadOnlyCollection<Item>> GetAllAsync()
     {
-        return _dbContext.Items.ToList().AsReadOnly();
+        return await _dbContext.Items.ToListAsync();
     }
 
     public async Task AddAsync(Item item)
@@ -21,7 +22,12 @@ public class WarehouseRepository : IWarehouseRepository
         await _dbContext.Items.AddAsync(item);
     }
 
-    public async Task UpdateRepositoryAsync()
+    public void DeleteRange(IEnumerable<Item> items)
+    {
+        _dbContext.Items.RemoveRange(items);
+    }
+
+    public async Task SaveChangesAsync()
     {
         await _dbContext.SaveChangesAsync();
     }

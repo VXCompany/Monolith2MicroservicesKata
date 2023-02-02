@@ -1,4 +1,5 @@
-﻿using Warehouse.UseCases.ReceiveGoodsUseCase;
+﻿using Warehouse.UseCases.ClearWarehouseUseCase;
+using Warehouse.UseCases.ReceiveGoodsUseCase;
 using Warehouse.UseCases.UpdateQualityUseCase;
 
 // Resharper disable once CheckNamespace
@@ -10,5 +11,6 @@ public static class WarehouseServiceCollectionExtensions
     {
         serviceCollection.AddTransient<ReceiveGoodsUseCase>();
         serviceCollection.AddTransient<UpdateQualityUseCase>();
+        serviceCollection.AddTransient<ClearWarehouseUseCase>();
     }
 }

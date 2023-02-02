@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Warehouse;
+using Warehouse.UseCases.ClearWarehouseUseCase;
 using Warehouse.UseCases.UpdateDailyWorkUseCase;
 using Warehouse.UseCases.UpdateQualityUseCase;
 
@@ -11,10 +12,11 @@ public static class Simulation
     {
         var simulationGroup = application.MapGroup("simulation");
         simulationGroup.MapPatch("updatehourlywork", UpdateHourlyWork);
-        simulationGroup.MapPatch("updatedailywork", UpdateDailyWork);
+        simulationGroup.MapPatch("dayhaspassed", DayHasPassed);
+        simulationGroup.MapPatch("resetsimulation", ResetSimulation);
     }
 
-    private static async Task<IResult> UpdateDailyWork(HttpContext context, [FromServices]UpdateQualityUseCase updateQualityUseCase)
+    private static async Task<IResult> DayHasPassed(HttpContext context, [FromServices]UpdateQualityUseCase updateQualityUseCase)
     {
         await updateQualityUseCase.UpdateQuality();
         return Results.Ok();
@@ -24,8 +26,12 @@ public static class Simulation
     {
         // Handle pending orders in warehouse
         updateDailyWorkWarehouseUseCase.UpdateDailyWork();
-        //
+        return Results.Ok();
+    }
 
+    private static async Task<IResult> ResetSimulation(HttpContext context, [FromServices]ClearWarehouseUseCase clearWarehouseUseCase)
+    {
+        await clearWarehouseUseCase.ClearWarehouseAsync();
         return Results.Ok();
     }
 }

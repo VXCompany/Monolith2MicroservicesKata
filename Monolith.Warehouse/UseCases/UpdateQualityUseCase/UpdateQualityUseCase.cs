@@ -15,12 +15,12 @@ public class UpdateQualityUseCase
     // used for simulation
     public async Task UpdateQuality()
     {
-        var stock = _warehouseRepository.GetAll();
+        var stock = await _warehouseRepository.GetAllAsync();
 
         var gildedRose = new GildedRose(stock.ToList());
 
         gildedRose.UpdateQuality();
 
-        await _warehouseRepository.UpdateRepositoryAsync();
+        await _warehouseRepository.SaveChangesAsync();
     }
 }

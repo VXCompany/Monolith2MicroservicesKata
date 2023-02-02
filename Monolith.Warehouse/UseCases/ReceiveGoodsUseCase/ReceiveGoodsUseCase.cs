@@ -21,11 +21,12 @@ public class ReceiveGoodsUseCase
                 Id = Guid.NewGuid(),
                 Name = itemToStore.Name,
                 Quality = itemToStore.Quality,
-                SellIn = itemToStore.SellIn
+                SellIn = itemToStore.SellIn,
+                Count = itemToStore.AmountReceived
             };
             await _warehouseRepository.AddAsync(newStockedItem);
         }
 
-        await _warehouseRepository.UpdateRepositoryAsync();
+        await _warehouseRepository.SaveChangesAsync();
     }
 }

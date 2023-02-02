@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "39457240-5125-4b94-b645-09115e784ff1",
+		"name": "Microservices2MonolithKata",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Warehouse",
+			"item": [
+				{
+					"name": "GetInventory",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "AddDefaultInventory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"receivedGoods\": [\r\n    {\r\n      \"name\": \"Aged Brie\",\r\n      \"quality\": 10,\r\n      \"sellIn\": 50,\r\n      \"AmountReceived\": 10\r\n    },\r\n    {\r\n      \"name\": \"Backstage passes to a TAFKAL80ETC concert\",\r\n      \"quality\": 20,\r\n      \"sellIn\": 20,\r\n      \"AmountReceived\": 5\r\n    },\r\n    {\r\n      \"name\": \"Sulfuras, Hand of Ragnaros\",\r\n      \"quality\": 80,\r\n      \"sellIn\": 50,\r\n      \"AmountReceived\": 1\r\n    },\r\n    {\r\n      \"name\": \"Moonberry Juice\",\r\n      \"quality\": 25,\r\n      \"sellIn\": 20,\r\n      \"AmountReceived\": 10\r\n    }    \r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/warehouse/receive-goods",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"warehouse",
+								"receive-goods"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Simulation",
+			"item": [
+				{
+					"name": "DayHasPassed",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

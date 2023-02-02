@@ -20,9 +20,9 @@ public static class Warehouse
         return Results.Ok();
     }
 
-    static IEnumerable<Item> GetInventory(
+    static async Task<IEnumerable<Item>> GetInventory(
         [FromServices]IWarehouseRepository warehouseRepository)
     {
-        return warehouseRepository.GetAll();
+        return await warehouseRepository.GetAllAsync();
     }
 }
