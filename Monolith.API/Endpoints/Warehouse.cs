@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Warehouse.Infra;
 using Warehouse.Infra.Data;
+using Warehouse.UseCases.ReceiveGoodsUseCase;
 
 namespace Monolith.API.Endpoints;
 
@@ -13,9 +14,10 @@ public static class Warehouse
         warehouseGroup.MapPost("receive-goods", ReceiveGoods);
     }
 
-    private static Task ReceiveGoods()
+    private async static Task<IResult>  ReceiveGoods([FromServices]ReceiveGoodsUseCase receiveGoodsUseCase, ReceiveGoodsRequest receiveGoodsRequest)
     {
-        throw new NotImplementedException();
+        await receiveGoodsUseCase.ProcessReceivedGoodsAsync(receiveGoodsRequest);
+        return Results.Ok();
     }
 
     static IEnumerable<Item> GetInventory(

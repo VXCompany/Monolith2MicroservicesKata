@@ -1,6 +1,6 @@
 ﻿using Warehouse.Infra.Data;
 
-namespace Warehouse;
+namespace Warehouse.Core;
 
 public class GildedRose
 {

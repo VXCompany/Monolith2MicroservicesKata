@@ -1,6 +1,7 @@
-﻿using Warehouse.Infra;
+﻿using Warehouse.Core;
+using Warehouse.Infra;
 
-namespace Warehouse;
+namespace Warehouse.UseCases.UpdateQualityUseCase;
 
 public class UpdateQualityUseCase
 {
