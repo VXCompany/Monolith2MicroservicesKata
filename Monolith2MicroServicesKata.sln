@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.Warehouse", "Monol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.API", "Monolith.API\Monolith.API.csproj", "{AEA732D6-5BCF-49F7-9DB9-32627985F65E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.Warehouse.Infra", "Monolith.Warehouse.Infra\Monolith.Warehouse.Infra.csproj", "{453058E6-804C-4C2E-826A-09E060802165}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.Infra", "Monolith.Infra\Monolith.Infra.csproj", "{453058E6-804C-4C2E-826A-09E060802165}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.Finance", "Monolith.Finance\Monolith.Finance.csproj", "{2EC80094-B7EC-413C-ACD9-89B8B3E9E9DF}"
 EndProject
