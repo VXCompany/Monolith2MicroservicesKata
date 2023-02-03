@@ -4,8 +4,8 @@ namespace Warehouse.Core;
 
 public class GildedRose
 {
-    IList<Item> Items;
-    public GildedRose(IList<Item> items)
+    IList<StockItem> Items;
+    public GildedRose(IList<StockItem> items)
     {
         Items = items;
     }

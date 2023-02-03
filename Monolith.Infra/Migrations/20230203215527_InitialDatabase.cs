@@ -6,30 +6,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Warehouse.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class addcart : Migration
+    public partial class InitialDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Items",
-                schema: "warehouse",
-                table: "Items");
-
             migrationBuilder.EnsureSchema(
                 name: "shoppingcart");
 
-            migrationBuilder.RenameTable(
-                name: "Items",
-                schema: "warehouse",
-                newName: "Item",
-                newSchema: "warehouse");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Item",
-                schema: "warehouse",
-                table: "Item",
-                column: "Id");
+            migrationBuilder.EnsureSchema(
+                name: "warehouse");
 
             migrationBuilder.CreateTable(
                 name: "Cart",
@@ -43,6 +29,22 @@ namespace Warehouse.Infra.Migrations
                 {
                     table.PrimaryKey("PK_Cart", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "StockItem",
+                schema: "warehouse",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    SellIn = table.Column<int>(type: "integer", nullable: false),
+                    Quality = table.Column<int>(type: "integer", nullable: false),
+                    Count = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockItem", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -52,22 +54,9 @@ namespace Warehouse.Infra.Migrations
                 name: "Cart",
                 schema: "shoppingcart");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Item",
-                schema: "warehouse",
-                table: "Item");
-
-            migrationBuilder.RenameTable(
-                name: "Item",
-                schema: "warehouse",
-                newName: "Items",
-                newSchema: "warehouse");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Items",
-                schema: "warehouse",
-                table: "Items",
-                column: "Id");
+            migrationBuilder.DropTable(
+                name: "StockItem",
+                schema: "warehouse");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Warehouse.Infra.Data;
 
-public class Item
+public class StockItem
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

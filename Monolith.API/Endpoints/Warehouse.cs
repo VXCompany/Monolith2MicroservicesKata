@@ -20,7 +20,7 @@ public static class Warehouse
         return Results.Ok();
     }
 
-    static async Task<IEnumerable<Item>> GetInventory(
+    static async Task<IEnumerable<StockItem>> GetInventory(
         [FromServices]IWarehouseRepository warehouseRepository)
     {
         return await warehouseRepository.GetAllAsync();

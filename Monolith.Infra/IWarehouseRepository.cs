@@ -4,10 +4,10 @@ namespace Warehouse.Infra;
 
 public interface IWarehouseRepository
 {
-    Task<IReadOnlyCollection<Item>> GetAllAsync();
-    Task AddAsync(Item item);
+    Task<IReadOnlyCollection<StockItem>> GetAllAsync();
+    Task AddAsync(StockItem stockItem);
 
     Task SaveChangesAsync();
 
-    void DeleteRange(IEnumerable<Item> items);
+    void DeleteRange(IEnumerable<StockItem> items);
 }

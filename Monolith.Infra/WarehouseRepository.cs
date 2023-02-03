@@ -12,17 +12,17 @@ public class WarehouseRepository : IWarehouseRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyCollection<Item>> GetAllAsync()
+    public async Task<IReadOnlyCollection<StockItem>> GetAllAsync()
     {
         return await _dbContext.Items.ToListAsync();
     }
 
-    public async Task AddAsync(Item item)
+    public async Task AddAsync(StockItem stockItem)
     {
-        await _dbContext.Items.AddAsync(item);
+        await _dbContext.Items.AddAsync(stockItem);
     }
 
-    public void DeleteRange(IEnumerable<Item> items)
+    public void DeleteRange(IEnumerable<StockItem> items)
     {
         _dbContext.Items.RemoveRange(items);
     }

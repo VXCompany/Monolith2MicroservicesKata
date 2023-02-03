@@ -16,7 +16,7 @@ public class ReceiveGoodsUseCase
     {
         foreach (var itemToStore in receiveGoodsRequest.ReceivedGoods)
         {
-            var newStockedItem = new Item
+            var newStockedItem = new StockItem
             {
                 Id = Guid.NewGuid(),
                 Name = itemToStore.Name,

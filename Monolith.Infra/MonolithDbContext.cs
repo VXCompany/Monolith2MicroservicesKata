@@ -10,7 +10,7 @@ public class MonolithDbContext : DbContext
         
     }
     
-    public DbSet<Item> Items => Set<Item>();
+    public DbSet<StockItem> Items => Set<StockItem>();
     public DbSet<Cart> Carts => Set<Cart>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,8 +18,8 @@ public class MonolithDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder
-            .Entity<Item>()
-            .ToTable(nameof(Item), "warehouse")
+            .Entity<StockItem>()
+            .ToTable(nameof(StockItem), "warehouse")
             .HasKey(i => i.Id);
 
         modelBuilder

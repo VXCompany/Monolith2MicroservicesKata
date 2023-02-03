@@ -12,8 +12,8 @@ using Warehouse.Infra;
 namespace Warehouse.Infra.Migrations
 {
     [DbContext(typeof(MonolithDbContext))]
-    [Migration("20230203215016_add-cart")]
-    partial class addcart
+    [Migration("20230203215527_InitialDatabase")]
+    partial class InitialDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace Warehouse.Infra.Migrations
                     b.ToTable("Cart", "shoppingcart");
                 });
 
-            modelBuilder.Entity("Warehouse.Infra.Data.Item", b =>
+            modelBuilder.Entity("Warehouse.Infra.Data.StockItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +61,7 @@ namespace Warehouse.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Item", "warehouse");
+                    b.ToTable("StockItem", "warehouse");
                 });
 #pragma warning restore 612, 618
         }
