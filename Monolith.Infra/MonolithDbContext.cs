@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection.Metadata;
+using Microsoft.EntityFrameworkCore;
 using Warehouse.Infra.Data;
 
 namespace Warehouse.Infra;
@@ -25,6 +26,10 @@ public class MonolithDbContext : DbContext
         modelBuilder
             .Entity<Cart>()
             .ToTable(nameof(Cart), "shoppingcart")
-            .HasKey(i => i.Id);
+            .HasKey(p => p.Id);
+        modelBuilder
+            .Entity<Cart>()
+            .HasMany(c => c.Items)
+            .WithOne(ci => ci.Cart);
     }
 }

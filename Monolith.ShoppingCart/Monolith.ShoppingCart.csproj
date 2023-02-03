@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Monolith.Infra\Monolith.Infra.csproj" />
+    </ItemGroup>
+
 </Project>

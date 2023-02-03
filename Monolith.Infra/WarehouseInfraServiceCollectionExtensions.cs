@@ -7,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class WarehouseInfraServiceCollectionExtensions
 {
-    public static IServiceCollection AddWarehouseInfra(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static IServiceCollection AddInfra(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         serviceCollection.AddDbContext<MonolithDbContext>(options =>
         {
@@ -16,6 +16,7 @@ public static class WarehouseInfraServiceCollectionExtensions
         });
 
         serviceCollection.AddTransient<IWarehouseRepository, WarehouseRepository>();
+        serviceCollection.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
         
         return serviceCollection;
     }

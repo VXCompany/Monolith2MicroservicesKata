@@ -7,4 +7,5 @@ public class StockItem
     public int SellIn { get; set; }
     public int Quality { get; set; }
     public int Count { get; set; }
+    public int ReservedCount { get; set; }
 }

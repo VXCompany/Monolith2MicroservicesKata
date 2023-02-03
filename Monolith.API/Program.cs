@@ -18,7 +18,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddWarehouse();
-builder.Services.AddWarehouseInfra(config);
+builder.Services.AddShoppingCart();
+
+builder.Services.AddInfra(config);
 
 var app = builder.Build();
 
