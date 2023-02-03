@@ -5,9 +5,9 @@ namespace Warehouse.Infra;
 
 public class WarehouseRepository : IWarehouseRepository
 {
-    private readonly WarehouseDbContext _dbContext;
+    private readonly MonolithDbContext _dbContext;
 
-    public WarehouseRepository(WarehouseDbContext dbContext)
+    public WarehouseRepository(MonolithDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -40,15 +40,15 @@ public interface IWarehousePersister
 
 public class WarehousePersister : IWarehousePersister
 {
-    private readonly WarehouseDbContext _warehouseDbContext;
+    private readonly MonolithDbContext _monolithDbContext;
 
-    public WarehousePersister(WarehouseDbContext warehouseDbContext)
+    public WarehousePersister(MonolithDbContext monolithDbContext)
     {
-        _warehouseDbContext = warehouseDbContext;
+        _monolithDbContext = monolithDbContext;
     }
 
     public void PersistChanges()
     {
-        _warehouseDbContext.SaveChanges();
+        _monolithDbContext.SaveChanges();
     }
 }

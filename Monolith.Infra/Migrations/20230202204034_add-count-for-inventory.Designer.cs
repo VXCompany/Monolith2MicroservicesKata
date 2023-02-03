@@ -11,7 +11,7 @@ using Warehouse.Infra;
 
 namespace Warehouse.Infra.Migrations
 {
-    [DbContext(typeof(WarehouseDbContext))]
+    [DbContext(typeof(MonolithDbContext))]
     [Migration("20230202204034_add-count-for-inventory")]
     partial class addcountforinventory
     {

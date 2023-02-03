@@ -9,7 +9,7 @@ public static class WarehouseInfraServiceCollectionExtensions
 {
     public static IServiceCollection AddWarehouseInfra(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddDbContext<WarehouseDbContext>(options =>
+        serviceCollection.AddDbContext<MonolithDbContext>(options =>
         {
             var connectionString = configuration.GetConnectionString("GildedRoseConnectionString");
             options.UseNpgsql(connectionString);

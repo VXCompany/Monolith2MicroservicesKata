@@ -3,23 +3,28 @@ using Warehouse.Infra.Data;
 
 namespace Warehouse.Infra;
 
-public class WarehouseDbContext : DbContext
+public class MonolithDbContext : DbContext
 {
-    public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options)
+    public MonolithDbContext(DbContextOptions<MonolithDbContext> options) : base(options)
     {
         
     }
     
     public DbSet<Item> Items => Set<Item>();
+    public DbSet<Cart> Carts => Set<Cart>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.HasDefaultSchema("warehouse");
-
         modelBuilder
             .Entity<Item>()
+            .ToTable(nameof(Item), "warehouse")
+            .HasKey(i => i.Id);
+
+        modelBuilder
+            .Entity<Cart>()
+            .ToTable(nameof(Cart), "shoppingcart")
             .HasKey(i => i.Id);
     }
 }

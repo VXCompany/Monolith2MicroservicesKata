@@ -10,18 +10,32 @@ using Warehouse.Infra;
 
 namespace Warehouse.Infra.Migrations
 {
-    [DbContext(typeof(WarehouseDbContext))]
+    [DbContext(typeof(MonolithDbContext))]
     partial class WarehouseDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("warehouse")
                 .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Warehouse.Infra.Data.Cart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CustomerNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cart", "shoppingcart");
+                });
 
             modelBuilder.Entity("Warehouse.Infra.Data.Item", b =>
                 {
@@ -44,7 +58,7 @@ namespace Warehouse.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items", "warehouse");
+                    b.ToTable("Item", "warehouse");
                 });
 #pragma warning restore 612, 618
         }

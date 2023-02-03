@@ -41,7 +41,7 @@ app.ConfigureSimulation();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<WarehouseDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<MonolithDbContext>();
     db.Database.Migrate();
 }
 
