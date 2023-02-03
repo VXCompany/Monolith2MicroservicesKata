@@ -7,5 +7,6 @@ public static class ShoppingCartServiceCollectionExtensions
     public static void AddShoppingCart(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<GetShoppingCartUseCase>();
+        serviceCollection.AddTransient<AddItemToShoppingCartUseCase>();
     }
 }
