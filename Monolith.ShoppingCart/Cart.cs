@@ -17,7 +17,11 @@ public class Cart
                 Amount = 1,
                 Id = Guid.NewGuid()
             };
+            Items.Add(item);
         }
-        Items.Add(item);
+        else
+        {
+            item.Amount++;
+        }
     }
 }

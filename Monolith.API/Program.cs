@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddWarehouse();
 builder.Services.AddShoppingCart();
+builder.Services.AddOrderManagement();
 
 builder.Services.AddTransient<CheckoutBasketService>();
 
