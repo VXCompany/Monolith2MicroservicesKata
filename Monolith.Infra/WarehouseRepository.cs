@@ -26,29 +26,4 @@ public class WarehouseRepository : IWarehouseRepository
     {
         _dbContext.Items.RemoveRange(items);
     }
-
-    public async Task SaveChangesAsync()
-    {
-        await _dbContext.SaveChangesAsync();
-    }
-}
-
-public interface IWarehousePersister
-{
-    void PersistChanges();
-}
-
-public class WarehousePersister : IWarehousePersister
-{
-    private readonly MonolithDbContext _monolithDbContext;
-
-    public WarehousePersister(MonolithDbContext monolithDbContext)
-    {
-        _monolithDbContext = monolithDbContext;
-    }
-
-    public void PersistChanges()
-    {
-        _monolithDbContext.SaveChanges();
-    }
 }

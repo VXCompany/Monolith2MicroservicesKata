@@ -6,10 +6,12 @@ namespace Warehouse.UseCases.ReceiveGoodsUseCase;
 public class ReceiveGoodsUseCase
 {
     private readonly IWarehouseRepository _warehouseRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ReceiveGoodsUseCase(IWarehouseRepository warehouseRepository)
+    public ReceiveGoodsUseCase(IWarehouseRepository warehouseRepository, IUnitOfWork unitOfWork)
     {
         _warehouseRepository = warehouseRepository;
+        _unitOfWork = unitOfWork;
     }
     
     public async Task ProcessReceivedGoodsAsync(ReceiveGoodsRequest receiveGoodsRequest)
@@ -27,6 +29,6 @@ public class ReceiveGoodsUseCase
             await _warehouseRepository.AddAsync(newStockedItem);
         }
 
-        await _warehouseRepository.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
     }
 }

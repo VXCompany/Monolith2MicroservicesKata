@@ -5,4 +5,6 @@ namespace Warehouse.Infra;
 public interface IShoppingCartRepository
 {
     Task<Cart?> FindForCustomerAsync(string customerNumber);
+
+    Task Save(Cart cart);
 }

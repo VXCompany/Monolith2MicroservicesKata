@@ -15,8 +15,11 @@ public static class WarehouseInfraServiceCollectionExtensions
             options.UseNpgsql(connectionString);
         });
 
+        serviceCollection.AddScoped<IUnitOfWork>(sp => sp.GetService<MonolithDbContext>());
+        
         serviceCollection.AddTransient<IWarehouseRepository, WarehouseRepository>();
         serviceCollection.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
+
         
         return serviceCollection;
     }

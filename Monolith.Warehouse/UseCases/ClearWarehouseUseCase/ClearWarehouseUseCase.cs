@@ -5,10 +5,12 @@ namespace Warehouse.UseCases.ClearWarehouseUseCase;
 public class ClearWarehouseUseCase
 {
     private readonly IWarehouseRepository _warehouseRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ClearWarehouseUseCase(IWarehouseRepository warehouseRepository)
+    public ClearWarehouseUseCase(IWarehouseRepository warehouseRepository, IUnitOfWork unitOfWork)
     {
         _warehouseRepository = warehouseRepository;
+        _unitOfWork = unitOfWork;
     }
     
     public async Task ClearWarehouseAsync()
@@ -17,6 +19,6 @@ public class ClearWarehouseUseCase
 
         _warehouseRepository.DeleteRange(inventory);
 
-        await _warehouseRepository.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
     }
 }

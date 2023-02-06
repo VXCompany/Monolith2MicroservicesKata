@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Monolith.API.Integration;
 using Monolith.OrderManagement;
 using Monolith.ShoppingCart;
-using Warehouse.Infra;
+using Monolith.ShoppingCart.UseCases.AddItemToShoppingCartUseCase;
+using Monolith.ShoppingCart.UseCases.GetShoppingCartUseCase;
 
 namespace Monolith.API.Endpoints;
 
@@ -16,13 +18,9 @@ public static class Basket
         basketGroup.MapPost("/{customerId}/checkout", CheckoutBasket);
     }
 
-    private static IResult CheckoutBasket(HttpContext context, CreateOrderUseCase createOrderUseCase)
+    private static async Task<IResult> CheckoutBasket(HttpContext context, string customerNumber, CheckoutBasketService checkoutBasketService)
     {
-        // redirect
-        // skip all kinds of payments complexity...for this kata, assume that payment is done and successful....basket is cleared..order is created
-        
-        // CreateOrderCommand => handle it in OrderManagement
-        createOrderUseCase.CreateOrder();
+        await checkoutBasketService.CheckoutBasket(customerNumber);
 
         return Results.Ok();
     }
@@ -32,7 +30,7 @@ public static class Basket
         return await getShoppingCartUse.GetShoppingCart(new GetShoppingCartRequest(customerNumber));
     }
     
-    static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerId, string productId)
+    static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerId, Guid productId)
     {
         await addItemToShoppingCartUseCase.AddItemToShoppingCartAsync(
             new AddItemToShoppingCartRequest(customerId, productId));

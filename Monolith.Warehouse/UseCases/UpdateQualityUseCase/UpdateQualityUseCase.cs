@@ -6,10 +6,12 @@ namespace Warehouse.UseCases.UpdateQualityUseCase;
 public class UpdateQualityUseCase
 {
     private readonly IWarehouseRepository _warehouseRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateQualityUseCase(IWarehouseRepository warehouseRepository)
+    public UpdateQualityUseCase(IWarehouseRepository warehouseRepository, IUnitOfWork unitOfWork)
     {
         _warehouseRepository = warehouseRepository;
+        _unitOfWork = unitOfWork;
     }
 
     // used for simulation
@@ -21,6 +23,6 @@ public class UpdateQualityUseCase
 
         gildedRose.UpdateQuality();
 
-        await _warehouseRepository.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
     }
 }

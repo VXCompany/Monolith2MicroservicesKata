@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Monolith.API.Endpoints;
-using Warehouse;
+using Monolith.API.Integration;
 using Warehouse.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +20,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddWarehouse();
 builder.Services.AddShoppingCart();
 
+builder.Services.AddTransient<CheckoutBasketService>();
+
 builder.Services.AddInfra(config);
 
 var app = builder.Build();
@@ -34,7 +36,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 
 app.ConfigureBasketEndpoints();
 app.ConfigureWarehouseEndpoints();

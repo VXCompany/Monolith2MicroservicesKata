@@ -1,6 +1,6 @@
 ﻿using Warehouse.Infra;
 
-namespace Monolith.ShoppingCart;
+namespace Monolith.ShoppingCart.UseCases.GetShoppingCartUseCase;
 
 public class GetShoppingCartUseCase
 {

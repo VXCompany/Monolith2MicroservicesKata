@@ -20,4 +20,13 @@ public class ShoppingCartRepository : IShoppingCartRepository
             .Where(cart => cart.CustomerNumber == customerNumber)
             .SingleOrDefaultAsync();
     }
+
+    public async Task Save(Cart cart)
+    {
+        var dbCart = await _monolithDbContext.Carts.Where(dbCart => dbCart.CustomerNumber == cart.CustomerNumber).SingleOrDefaultAsync();
+        if (dbCart == null)
+        {
+            _monolithDbContext.Carts.Add(cart);
+        }
+    }
 }

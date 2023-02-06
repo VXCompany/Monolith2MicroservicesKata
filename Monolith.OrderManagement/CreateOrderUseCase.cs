@@ -2,8 +2,10 @@
 
 public class CreateOrderUseCase
 {
-    public void CreateOrder()
+    public void CreateOrder(CreateOrderRequest request)
     {
         
     }
 }
+
+public record CreateOrderRequest();

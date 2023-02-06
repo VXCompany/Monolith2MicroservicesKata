@@ -1,10 +1,9 @@
-﻿using System.Reflection.Metadata;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Warehouse.Infra.Data;
 
 namespace Warehouse.Infra;
 
-public class MonolithDbContext : DbContext
+public class MonolithDbContext : DbContext, IUnitOfWork
 {
     public MonolithDbContext(DbContextOptions<MonolithDbContext> options) : base(options)
     {
@@ -45,5 +44,10 @@ public class MonolithDbContext : DbContext
         modelBuilder
             .Entity<OrderLine>()
             .HasKey(ol => ol.Id);
+    }
+
+    public Task<int> SaveChangesAsync()
+    {
+        return base.SaveChangesAsync();
     }
 }

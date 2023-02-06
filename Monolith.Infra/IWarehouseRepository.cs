@@ -6,8 +6,5 @@ public interface IWarehouseRepository
 {
     Task<IReadOnlyCollection<StockItem>> GetAllAsync();
     Task AddAsync(StockItem stockItem);
-
-    Task SaveChangesAsync();
-
     void DeleteRange(IEnumerable<StockItem> items);
 }
