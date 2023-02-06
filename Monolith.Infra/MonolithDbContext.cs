@@ -14,6 +14,8 @@ public class MonolithDbContext : DbContext
     public DbSet<StockItem> Items => Set<StockItem>();
     public DbSet<Cart> Carts => Set<Cart>();
 
+    public DbSet<Order> Orders => Set<Order>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -31,5 +33,17 @@ public class MonolithDbContext : DbContext
             .Entity<Cart>()
             .HasMany(c => c.Items)
             .WithOne(ci => ci.Cart);
+
+        modelBuilder
+            .Entity<Order>()
+            .ToTable(nameof(Order), "ordering")
+            .HasKey(o => o.Id);
+        modelBuilder.Entity<Order>()
+            .HasMany(o => o.OrderLines)
+            .WithOne(ol => ol.Order);
+
+        modelBuilder
+            .Entity<OrderLine>()
+            .HasKey(ol => ol.Id);
     }
 }
