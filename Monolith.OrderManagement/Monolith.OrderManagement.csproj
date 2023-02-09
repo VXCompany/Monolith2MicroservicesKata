@@ -12,4 +12,8 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Monolith.Infra\Monolith.Infra.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -29,4 +29,9 @@ public class ShoppingCartRepository : IShoppingCartRepository
             _monolithDbContext.Carts.Add(cart);
         }
     }
+
+    public void Delete(Cart cart)
+    {
+        _monolithDbContext.Carts.Remove(cart);
+    }
 }

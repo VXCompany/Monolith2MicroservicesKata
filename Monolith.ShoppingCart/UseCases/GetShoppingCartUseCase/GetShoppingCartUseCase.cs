@@ -1,4 +1,5 @@
 ﻿using Warehouse.Infra;
+using Warehouse.Infra.Data;
 
 namespace Monolith.ShoppingCart.UseCases.GetShoppingCartUseCase;
 
@@ -23,18 +24,7 @@ public class GetShoppingCartUseCase
                 Items = new List<CartItem>()
             };
         }
-        
-        return new Cart
-        {
-            CustomerNumber = cartData.CustomerNumber,
-            Items = cartData
-                        .Items
-                        .Select(item => new CartItem
-                        {
-                            Id = item.Id,
-                            Amount = item.Amount,
-                            ProductId = item.ProductId
-                        }).ToList()
-        };
+
+        return cartData;
     }
 }

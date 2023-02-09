@@ -19,8 +19,8 @@ public static class WarehouseInfraServiceCollectionExtensions
         
         serviceCollection.AddTransient<IWarehouseRepository, WarehouseRepository>();
         serviceCollection.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
+        serviceCollection.AddTransient<IOrderRepository, OrderRepository>();
 
-        
         return serviceCollection;
     }
 }

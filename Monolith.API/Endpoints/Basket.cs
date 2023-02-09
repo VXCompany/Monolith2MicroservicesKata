@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Monolith.API.Integration;
-using Monolith.OrderManagement;
 using Monolith.ShoppingCart;
 using Monolith.ShoppingCart.UseCases.AddItemToShoppingCartUseCase;
 using Monolith.ShoppingCart.UseCases.GetShoppingCartUseCase;
+using Warehouse.Infra.Data;
 
 namespace Monolith.API.Endpoints;
 

@@ -15,6 +15,13 @@ public class CheckoutBasketUseCase
     {
         var shoppingCart = await _shoppingCartRepository.FindForCustomerAsync(request.CustomerNumber);
 
-        return new CheckoutBasketResponse();
+        if (shoppingCart == null || shoppingCart.Items.Count == 0)
+        {
+            throw new InvalidOperationException($"Unable to checkout basket, customer currently doesn't have one");
+        }
+        
+        _shoppingCartRepository.Delete(shoppingCart);
+
+        return new CheckoutBasketResponse(shoppingCart);
     }
 }

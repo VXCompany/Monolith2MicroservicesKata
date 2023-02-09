@@ -1,3 +1,5 @@
+using Warehouse.Infra.Data;
+
 namespace Monolith.ShoppingCart.UseCases.CheckoutBasketUseCase;
 
-public record CheckoutBasketResponse();
+public record CheckoutBasketResponse(Cart CheckedOutCart);

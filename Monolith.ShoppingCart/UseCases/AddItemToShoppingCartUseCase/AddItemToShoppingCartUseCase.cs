@@ -1,50 +1,49 @@
-﻿using Monolith.ShoppingCart.Mappers;
-using Warehouse.Infra;
+﻿using Warehouse.Infra;
+using Warehouse.Infra.Data;
 
 namespace Monolith.ShoppingCart.UseCases.AddItemToShoppingCartUseCase;
 
 public class AddItemToShoppingCartUseCase
 {
     private readonly IShoppingCartRepository _shoppingCartRepository;
-    private readonly CartMapper _cartMapper;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AddItemToShoppingCartUseCase(IShoppingCartRepository shoppingCartRepository, CartMapper cartMapper, IUnitOfWork unitOfWork)
+    public AddItemToShoppingCartUseCase(IShoppingCartRepository shoppingCartRepository, IUnitOfWork unitOfWork)
     {
         _shoppingCartRepository = shoppingCartRepository;
-        _cartMapper = cartMapper;
         _unitOfWork = unitOfWork;
     }
 
     public async Task AddItemToShoppingCartAsync(AddItemToShoppingCartRequest request)
     {
-        var shoppingCartData = await _shoppingCartRepository.FindForCustomerAsync(request.CustomerNumber);
+        var cart = await _shoppingCartRepository.FindForCustomerAsync(request.CustomerNumber);
 
-        Cart cart;
-        if (shoppingCartData == null)
+        if (cart == null)
         {
-            shoppingCartData = new Warehouse.Infra.Data.Cart
-            {
-                CustomerNumber = request.CustomerNumber,
-                Items = new List<Warehouse.Infra.Data.CartItem>()
-            };
             cart = new Cart
             {
                 CustomerNumber = request.CustomerNumber,
                 Items = new List<CartItem>()
             };
         }
+
+        var item = cart.Items.FirstOrDefault(item => item.ProductId == request.ProductId);
+        if (item == null)
+        {
+            item = new CartItem
+            {
+                ProductId = request.ProductId,
+                Amount = 1,
+                Id = Guid.NewGuid()
+            };
+            cart.Items.Add(item);
+        }
         else
         {
-            cart = _cartMapper.MapDataToDomain(shoppingCartData);
+            item.Amount++;
         }
 
-
-        cart.AddItemToCart(request.ProductId);
-
-        _cartMapper.MapDomainToData(cart, shoppingCartData);
-
-        await _shoppingCartRepository.Save(shoppingCartData);
+        await _shoppingCartRepository.Save(cart);
         await _unitOfWork.SaveChangesAsync();
     }
 }

@@ -1,4 +1,4 @@
-﻿using Monolith.OrderManagement;
+﻿using Monolith.OrderManagement.UseCases.CreateOrderUseCase;
 using Monolith.ShoppingCart.UseCases.CheckoutBasketUseCase;
 using Warehouse.Infra;
 
@@ -19,9 +19,9 @@ public class CheckoutBasketService
     
     public async Task CheckoutBasket(string customerNumber)
     {
-        await _checkoutBasketUseCase.CheckoutBasket(new CheckoutBasketRequest(customerNumber));
+        var checkedOutBasket = await _checkoutBasketUseCase.CheckoutBasket(new CheckoutBasketRequest(customerNumber));
         
-        _createOrderUseCase.CreateOrder(new CreateOrderRequest());
+        _createOrderUseCase.CreateOrder(new CreateOrderRequest(checkedOutBasket.CheckedOutCart));
 
         await _unitOfWork.SaveChangesAsync();
     }
