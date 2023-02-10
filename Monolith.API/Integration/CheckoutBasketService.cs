@@ -21,7 +21,7 @@ public class CheckoutBasketService
     {
         var checkedOutBasket = await _checkoutBasketUseCase.CheckoutBasket(new CheckoutBasketRequest(customerNumber));
         
-        _createOrderUseCase.CreateOrder(new CreateOrderRequest(checkedOutBasket.CheckedOutCart));
+        await _createOrderUseCase.CreateOrder(new CreateOrderRequest(checkedOutBasket.CheckedOutCart));
 
         await _unitOfWork.SaveChangesAsync();
     }

@@ -2,8 +2,15 @@ namespace Warehouse.Infra;
 
 public class OrderRepository : IOrderRepository
 {
-    public Task Save(Order order)
+    private readonly MonolithDbContext _monolithDbContext;
+
+    public OrderRepository(MonolithDbContext monolithDbContext)
     {
-        throw new NotImplementedException();
+        _monolithDbContext = monolithDbContext;
+    }
+    
+    public async Task Save(Order order)
+    {
+        await _monolithDbContext.AddAsync(order);
     }
 }

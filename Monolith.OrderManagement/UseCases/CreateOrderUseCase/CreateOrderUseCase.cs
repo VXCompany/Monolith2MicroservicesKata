@@ -4,19 +4,20 @@ namespace Monolith.OrderManagement.UseCases.CreateOrderUseCase;
 
 public class CreateOrderUseCase
 {
-    private readonly MonolithDbContext _monolithDbContext;
+    private readonly IOrderRepository _orderRepository;
     private const double VAT = 0.19;
 
-    public CreateOrderUseCase(MonolithDbContext monolithDbContext)
+    public CreateOrderUseCase(IOrderRepository orderRepository)
     {
-        _monolithDbContext = monolithDbContext;
+        _orderRepository = orderRepository;
     }
     
-    public void CreateOrder(CreateOrderRequest request)
+    public async Task CreateOrder(CreateOrderRequest request)
     {
         var order = new Order
         {
             Id = Guid.NewGuid(),
+            Status = OrderStatus.Processing,
             CustomerNumber = request.Cart.CustomerNumber,
             TotalPrice = request.Cart.Items.Sum(item => item.Amount),
             TotalWithTax = request.Cart.Items.Sum(item => item.Amount) * (1 + VAT),
@@ -28,7 +29,7 @@ public class CreateOrderUseCase
                 TotalOrdered = item.Amount
             }).ToList()
         };
-        
-        
+
+        await _orderRepository.Save(order);
     }
 }
