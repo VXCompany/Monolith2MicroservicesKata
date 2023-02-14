@@ -30,10 +30,10 @@ public static class Basket
         return await getShoppingCartUse.GetShoppingCart(new GetShoppingCartRequest(customerNumber));
     }
     
-    static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerId, Guid productId)
+    static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerId, string productCode)
     {
         await addItemToShoppingCartUseCase.AddItemToShoppingCartAsync(
-            new AddItemToShoppingCartRequest(customerId, productId));
+            new AddItemToShoppingCartRequest(customerId, productCode));
         return Results.Ok();
     }
     

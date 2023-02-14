@@ -27,12 +27,12 @@ public class AddItemToShoppingCartUseCase
             };
         }
 
-        var item = cart.Items.FirstOrDefault(item => item.ProductId == request.ProductId);
+        var item = cart.Items.FirstOrDefault(item => item.ProductCode == request.ProductCode);
         if (item == null)
         {
             item = new CartItem
             {
-                ProductId = request.ProductId,
+                ProductCode = request.ProductCode,
                 Amount = 1,
                 Id = Guid.NewGuid()
             };
