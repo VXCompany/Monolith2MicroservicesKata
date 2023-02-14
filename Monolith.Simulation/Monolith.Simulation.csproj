@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="UpdateDailyWorkUseCase" />
+      <ProjectReference Include="..\Monolith.Warehouse\Monolith.Warehouse.csproj" />
     </ItemGroup>
 
 </Project>

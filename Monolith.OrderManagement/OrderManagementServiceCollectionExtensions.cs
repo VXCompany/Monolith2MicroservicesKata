@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Monolith.OrderManagement.UseCases.CreateOrderUseCase;
+﻿using Monolith.OrderManagement.UseCases.CreateOrderUseCase;
 
 // Resharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
