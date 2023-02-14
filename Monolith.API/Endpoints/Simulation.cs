@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Warehouse;
+using Monolith.Simulation.UseCases.UpdateDailyWorkUseCase;
 using Warehouse.UseCases.ClearWarehouseUseCase;
-using Warehouse.UseCases.UpdateDailyWorkUseCase;
 using Warehouse.UseCases.UpdateQualityUseCase;
 
 namespace Monolith.API.Endpoints;

@@ -5,7 +5,7 @@ namespace Monolith.OrderManagement.UseCases.CreateOrderUseCase;
 public class CreateOrderUseCase
 {
     private readonly IOrderRepository _orderRepository;
-    private const double VAT = 0.19;
+    private const double VAT = 0.21;
 
     public CreateOrderUseCase(IOrderRepository orderRepository)
     {

@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.OrderManagement", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.ShoppingCart", "Monolith.ShoppingCart\Monolith.ShoppingCart.csproj", "{A358C768-CB33-47E1-BCFE-45AC48A9DBFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.Simulation", "Monolith.Simulation\Monolith.Simulation.csproj", "{C1FE2808-F50F-4459-8D72-517B905597BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith.Integration", "Monolith.Integration\Monolith.Integration.csproj", "{102F4A3F-2373-42A3-905E-26606070181A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{A358C768-CB33-47E1-BCFE-45AC48A9DBFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A358C768-CB33-47E1-BCFE-45AC48A9DBFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A358C768-CB33-47E1-BCFE-45AC48A9DBFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1FE2808-F50F-4459-8D72-517B905597BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1FE2808-F50F-4459-8D72-517B905597BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1FE2808-F50F-4459-8D72-517B905597BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1FE2808-F50F-4459-8D72-517B905597BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{102F4A3F-2373-42A3-905E-26606070181A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{102F4A3F-2373-42A3-905E-26606070181A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{102F4A3F-2373-42A3-905E-26606070181A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{102F4A3F-2373-42A3-905E-26606070181A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

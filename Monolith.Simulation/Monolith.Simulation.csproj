@@ -4,15 +4,10 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>Warehouse</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Monolith.Infra\Monolith.Infra.csproj" />
+      <Folder Include="UpdateDailyWorkUseCase" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="UseCases\PickOrderUseCase" />
-    </ItemGroup>
-    
 </Project>
