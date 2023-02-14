@@ -2,4 +2,4 @@
 
 public record ReceiveGoodsRequest(IEnumerable<ReceivedGood> ReceivedGoods);
 
-public record ReceivedGood(string Name, int Quality, int SellIn, int AmountReceived);
+public record ReceivedGood(string ProductCode, int Quality, int SellIn, int AmountReceived);

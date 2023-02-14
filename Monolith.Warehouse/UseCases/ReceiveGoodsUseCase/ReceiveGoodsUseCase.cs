@@ -21,14 +21,26 @@ public class ReceiveGoodsUseCase
             var newStockedItem = new StockItem
             {
                 Id = Guid.NewGuid(),
-                Name = itemToStore.Name,
+                ProductCode = itemToStore.ProductCode,
+                Name = GetProductNameFromProductCode(itemToStore.ProductCode),
                 Quality = itemToStore.Quality,
                 SellIn = itemToStore.SellIn,
                 Count = itemToStore.AmountReceived
             };
             await _warehouseRepository.AddAsync(newStockedItem);
         }
-
         await _unitOfWork.SaveChangesAsync();
+    }
+
+    private string GetProductNameFromProductCode(string productCode)
+    {
+        return productCode switch
+        {
+            "NORM-MoonJ" => "Moonberry Juice",
+            "EPIC-Ragnaros" => "Sulfuras, Hand of Ragnaros",
+            "TICK-TAFK" => "Backstage passes to a TAFKAL80ETC concert",
+            "SPOIL-BRIE" => "Aged Brie",
+            _ => throw new InvalidOperationException("unknown product")
+        };
     }
 }
