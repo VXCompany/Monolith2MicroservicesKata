@@ -10,9 +10,5 @@
     <ItemGroup>
       <ProjectReference Include="..\Monolith.Infra\Monolith.Infra.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="UseCases\PickOrderUseCase" />
-    </ItemGroup>
     
 </Project>
