@@ -1,4 +1,5 @@
 ﻿using Warehouse.Infra;
+using Warehouse.UseCases.ReceiveGoodsUseCase;
 
 namespace Monolith.Simulation.PersonasOrDepartments.GoodsReceiving;
 
@@ -7,23 +8,51 @@ public class GoodsReceivedScenario
     private readonly IUnitOfWork _unitOfWork;
     private readonly IWarehouseRepository _warehouseRepository;
     private readonly IOrderRepository _orderRepository;
+    private readonly ReceiveGoodsUseCase _receiveGoodsUseCase;
 
-    public GoodsReceivedScenario(IUnitOfWork unitOfWork, IWarehouseRepository warehouseRepository, IOrderRepository orderRepository)
+    public GoodsReceivedScenario(IUnitOfWork unitOfWork, IWarehouseRepository warehouseRepository, IOrderRepository orderRepository, ReceiveGoodsUseCase receiveGoodsUseCase)
     {
         _unitOfWork = unitOfWork;
         _warehouseRepository = warehouseRepository;
         _orderRepository = orderRepository;
+        _receiveGoodsUseCase = receiveGoodsUseCase;
     }
 
     public async Task RunScenario()
     {
+        var receiveGoodsList = new List<ReceivedGood?>();
+        receiveGoodsList.Add(await RestockProduct("NORM-MoonJ", 20, 50));
+        receiveGoodsList.Add(await RestockProduct("EPIC-Ragnaros", 80, 1));
+        receiveGoodsList.Add(await RestockProduct("TICK-TAFK", 20, 10));
+        receiveGoodsList.Add(await RestockProduct("SPOIL-BRIE", 25, 20));
+        //
+
+        receiveGoodsList = receiveGoodsList.Where(record => record != null).ToList();
+        if (receiveGoodsList.Count > 0)
+        {
+            await _receiveGoodsUseCase.ProcessReceivedGoodsAsync(new ReceiveGoodsRequest(receiveGoodsList!));
+        }
+    }
+
+    private async Task<ReceivedGood?> RestockProduct(string productCode, int quality, int topOffAtNewStockCount)
+    {
         var currentStock = await _warehouseRepository.GetAllAsync();
-        var allOrders = await _orderRepository.GetAll();
-
-        var groups = currentStock.GroupBy(item => item.Name);
-
-        allOrders.SelectMany(o => o.OrderLines).GroupBy(ol => ol.ProductCode);
+        var productCodeCurrentlyInStock = currentStock.Where(stock => stock.ProductCode == productCode).Sum(stock => stock.Count);
         
-        await _unitOfWork.SaveChangesAsync();
+        var allOrders = await _orderRepository.GetAll();
+        var productCodeCurrentlyOrdered = allOrders.SelectMany(o => o.OrderLines).Where(ol => ol.ProductCode == productCode).Sum(ol => ol.TotalOrdered);
+        
+        // in stock | ordered | difference | min | what to receive (topoff 10)
+        // 30       | 40      | -10        | -10 | 10
+        // 50       | 30      | 20         |     | 0
+        // 50       | 45      | 5          |     | 5
+        var diff = productCodeCurrentlyInStock - productCodeCurrentlyOrdered;
+        var min = Math.Min(diff, 0);
+        if (min < topOffAtNewStockCount)
+        {
+            return new ReceivedGood(productCode, quality, quality, topOffAtNewStockCount - min);
+        }
+        
+        return null;
     }
 }

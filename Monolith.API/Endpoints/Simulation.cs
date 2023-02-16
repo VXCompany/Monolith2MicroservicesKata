@@ -21,10 +21,10 @@ public static class Simulation
         return Results.Ok();
     }
 
-    private static IResult UpdateHourlyWork(HttpContext context, [FromServices]UpdateDailyWorkUseCase updateDailyWorkWarehouseUseCase)
+    private static async Task<IResult> UpdateHourlyWork(HttpContext context, [FromServices]UpdateDailyWorkUseCase updateDailyWorkWarehouseUseCase)
     {
         // Handle pending orders in warehouse
-        updateDailyWorkWarehouseUseCase.UpdateDailyWork();
+        await updateDailyWorkWarehouseUseCase.UpdateDailyWork();
         return Results.Ok();
     }
 
