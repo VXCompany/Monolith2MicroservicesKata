@@ -39,13 +39,9 @@ public class GoodsReceivedScenario
         var currentStock = await _warehouseRepository.GetAllAsync();
         var productCodeCurrentlyInStock = currentStock.Where(stock => stock.ProductCode == productCode).Sum(stock => stock.Count);
         
-        var allOrders = await _orderRepository.GetAll();
+        var allOrders = await _orderRepository.GetAllByStatus(OrderStatus.Processing);
         var productCodeCurrentlyOrdered = allOrders.SelectMany(o => o.OrderLines).Where(ol => ol.ProductCode == productCode).Sum(ol => ol.TotalOrdered);
         
-        // in stock | ordered | difference | min | what to receive (topoff 10)
-        // 30       | 40      | -10        | -10 | 10
-        // 50       | 30      | 20         |     | 0
-        // 50       | 45      | 5          |     | 5
         var diff = productCodeCurrentlyInStock - productCodeCurrentlyOrdered;
         var min = Math.Min(diff, 0);
         if (min < topOffAtNewStockCount)

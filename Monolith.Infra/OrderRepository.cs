@@ -20,4 +20,13 @@ public class OrderRepository : IOrderRepository
     {
         return await _monolithDbContext.Orders.Include(o => o.OrderLines).ToListAsync();
     }
+
+    public async Task<IReadOnlyCollection<Order>> GetAllByStatus(params OrderStatus[] orderStatus)
+    {
+        return await _monolithDbContext
+            .Orders
+            .Include(o => o.OrderLines)
+            .Where(o => orderStatus.Any(status => status == o.Status))
+            .ToListAsync();
+    }
 }
