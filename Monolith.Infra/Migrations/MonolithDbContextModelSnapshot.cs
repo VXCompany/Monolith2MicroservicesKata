@@ -110,6 +110,46 @@ namespace Warehouse.Infra.Migrations
                     b.ToTable("CartItem");
                 });
 
+            modelBuilder.Entity("Warehouse.Infra.Data.PickOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ForOrder")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PickOrder", "warehouse");
+                });
+
+            modelBuilder.Entity("Warehouse.Infra.Data.PickOrderLine", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("PickOrderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ProductCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PickOrderId");
+
+                    b.ToTable("PickOrderLine");
+                });
+
             modelBuilder.Entity("Warehouse.Infra.Data.StockItem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -163,6 +203,17 @@ namespace Warehouse.Infra.Migrations
                     b.Navigation("Cart");
                 });
 
+            modelBuilder.Entity("Warehouse.Infra.Data.PickOrderLine", b =>
+                {
+                    b.HasOne("Warehouse.Infra.Data.PickOrder", "PickOrder")
+                        .WithMany("PickOrderLines")
+                        .HasForeignKey("PickOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PickOrder");
+                });
+
             modelBuilder.Entity("Order", b =>
                 {
                     b.Navigation("OrderLines");
@@ -171,6 +222,11 @@ namespace Warehouse.Infra.Migrations
             modelBuilder.Entity("Warehouse.Infra.Data.Cart", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Warehouse.Infra.Data.PickOrder", b =>
+                {
+                    b.Navigation("PickOrderLines");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,10 +1,14 @@
-﻿namespace Microsoft.Extensions.DependencyInjection.PersonasOrDepartments.OrderPicker;
+﻿using Warehouse.Infra;
+
+namespace Microsoft.Extensions.DependencyInjection.PersonasOrDepartments.OrderPicker;
 
 public class ProcessNextOrderScenario
 {
-    public ProcessNextOrderScenario()
+    private readonly IOrderRepository _orderRepository;
+
+    public ProcessNextOrderScenario(IOrderRepository orderRepository)
     {
-        
+        _orderRepository = orderRepository;
     }
     
     public Task ProcessNextOrder()
