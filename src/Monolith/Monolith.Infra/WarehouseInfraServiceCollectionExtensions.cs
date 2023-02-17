@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Warehouse.Infra;
 using Warehouse.Infra.BasketService;
 
-// Resharper disable once CheckNamespace
-namespace Microsoft.Extensions.DependencyInjection;
 
-public static class WarehouseInfraServiceCollectionExtensions
+
+public static class WarehouseInfraServceCollectionExtensions
 {
     public static IServiceCollection AddInfra(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
@@ -15,7 +15,7 @@ public static class WarehouseInfraServiceCollectionExtensions
             var connectionString = configuration.GetConnectionString("GildedRoseConnectionString");
             options.UseNpgsql(connectionString);
         });
-        
+
         serviceCollection.Configure<BasketServiceConnectionOptions>(configuration.GetSection(BasketServiceConnectionOptions.BasketServiceConnection));
 
         serviceCollection.AddScoped<IUnitOfWork>(sp => sp.GetService<MonolithDbContext>());
