@@ -10,8 +10,4 @@
       <ProjectReference Include="..\Monolith.Warehouse\Monolith.Warehouse.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="PersonasOrDepartments\OrderPicker" />
-    </ItemGroup>
-
 </Project>

@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection.UseCases.PickOrderUseCase;
-using Warehouse.UseCases.ClearWarehouseUseCase;
+﻿using Warehouse.UseCases.ClearWarehouseUseCase;
+using Warehouse.UseCases.PickOrderUseCase;
 using Warehouse.UseCases.ReceiveGoodsUseCase;
 using Warehouse.UseCases.UpdateQualityUseCase;
 
@@ -10,7 +10,7 @@ public static class WarehouseServiceCollectionExtensions
 {
     public static void AddWarehouse(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddTransient<PickOrderUseCase>();
+        serviceCollection.AddTransient<OrderPickedUseCase>();
         serviceCollection.AddTransient<ReceiveGoodsUseCase>();
         serviceCollection.AddTransient<UpdateQualityUseCase>();
         serviceCollection.AddTransient<ClearWarehouseUseCase>();
