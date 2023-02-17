@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="BasketService" />
       <Folder Include="Migrations" />
     </ItemGroup>
 
