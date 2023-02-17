@@ -13,7 +13,7 @@ public static class Basket
     {
         var basketGroup = application.MapGroup("Basket");
         basketGroup.MapGet("/{customerNumber}", GetBasket);
-        basketGroup.MapPost("/{customerId}", AddProduct);
+        basketGroup.MapPost("/{customerNumber}", AddProduct);
 
         basketGroup.MapPost("/{customerId}/checkout", CheckoutBasket);
     }
@@ -30,10 +30,10 @@ public static class Basket
         return await getShoppingCartUse.GetShoppingCart(new GetShoppingCartRequest(customerNumber));
     }
     
-    static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerId, string productCode)
+    static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerNumber, string productCode)
     {
         await addItemToShoppingCartUseCase.AddItemToShoppingCartAsync(
-            new AddItemToShoppingCartRequest(customerId, productCode));
+            new AddItemToShoppingCartRequest(customerNumber, productCode));
         return Results.Ok();
     }
     
