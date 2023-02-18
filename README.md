@@ -10,7 +10,7 @@ Purpose of this kata is to extract microservices from the Monolith. The code is 
 Gilded rose has it's webshop online, so people all over Stormwind city can order from their homes. Due to the high demands the current system is becoming unstable. Scaling the current monolith no longer is a viable option.
 
 At first we split of Product presentation which takes the highest loads, customers browsing through our collection. This gave us some breathing space so we could scale further. However, the next bottleneck is starting to show, which is the basket and checkout and the warehouse.
-We decided that we should extract the Basket and checkout service first. We expect that this extraction would reduce load on the monolith as a whole and because of that, the remaining warehouse logic will also improve performance and stability.
+We decided that we should extract the Shoppingcart service first. We expect that this extraction would reduce load on the monolith as a whole and because of that, the remaining warehouse logic will also improve performance and stability.
 
 As an extra, once we have the basket extracted, we can start adding features to attract more customers without destabilizing our service. Stuff like coupons and discounts.
 
