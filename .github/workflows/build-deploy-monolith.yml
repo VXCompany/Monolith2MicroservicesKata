@@ -1,7 +1,8 @@
-name: Build the Monolith
+name: Build and deploy the monolith
 
 env:
-  DOTNET_VERSION: '7.0'                 # set this to the .NET Core version to use
+  DOTNET_VERSION: '7.0'
+  DOTNET_PROJECT_FILEPATH: 'src/Monolith/Monolith.API/Monolith.API.csproj'
 
 on:
   workflow_dispatch:
@@ -30,10 +31,10 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release ${{env.DOTNET_PROJECT_FILEPATH}}
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp ${{env.DOTNET_PROJECT_FILEPATH}}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
