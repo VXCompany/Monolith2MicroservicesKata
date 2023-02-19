@@ -2,7 +2,7 @@ name: Build and deploy the gateway
 
 env:
   DOTNET_VERSION: '7.0'
-  DOTNET_PROJECT_FILEPATH: 'src/Services/ApiGateway/Web.ApiGateway/Web.ApiGateway.csproj'
+  DOTNET_PROJECT_FILEPATH: 'src/ApiGateway/Web.ApiGateway/Web.ApiGateway.csproj'
   AZURE_WEBAPP_NAME: app-gateway
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
