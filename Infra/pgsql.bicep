@@ -1,74 +1,79 @@
-@description('Server Name for Azure database for PostgreSQL')
-param serverName string
-
-@description('Database administrator login name')
-@minLength(1)
-param administratorLogin string
-
-@description('Database administrator password')
-@minLength(8)
 @secure()
 param administratorLoginPassword string
-
-@description('Azure database for PostgreSQL compute capacity in vCores (2,4,8,16,32)')
-param skuCapacity int = 1
-
-@description('Azure database for PostgreSQL sku name ')
-param skuName string = 'B_Gen5_1'
-
-@description('Azure database for PostgreSQL Sku Size ')
-param skuSizeMB int = 51200
-
-@description('Azure database for PostgreSQL pricing tier')
-@allowed([
-  'Basic'
-  'GeneralPurpose'
-  'MemoryOptimized'
-])
-param skuTier string = 'Basic'
-
-@description('Azure database for PostgreSQL sku family')
-param skuFamily string = 'Gen5'
-
-@description('PostgreSQL version')
-@allowed([
-  '9.5'
-  '9.6'
-  '10'
-  '10.0'
-  '10.2'
-  '11'
-])
-param postgresqlVersion string = '11'
-
-@description('Location for all resources.')
+param administratorLogin string
 param location string = resourceGroup().location
+param serverName string
+param serverEdition string = 'Burstable'
+param skuSizeGB int = 32
+param dbInstanceType string = 'Standard_B1ms'
+param version string = '14'
 
-@description('PostgreSQL Server backup retention days')
-param backupRetentionDays int = 7
+var webAppName = toLower('app-monolith')
+var vnetName = 'vnet-${webAppName}'
+var subnetName = 'subnet-pgsql-monolith'
+var dnsName = 'dns-kennisdag.postgres.database.azure.com'
 
-@description('Geo-Redundant Backup setting')
-param geoRedundantBackup string = 'Disabled'
+resource vnet 'Microsoft.Network/virtualNetworks@2022-07-01' existing = {
+  name: vnetName
+}
 
-resource server 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
+resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-07-01' = {
+  name: subnetName
+  parent: vnet
+  properties: {
+    addressPrefix: '10.0.1.0/24'
+    delegations: [
+      {
+        name: 'Microsoft.DBforPostgreSQL/flexibleServers'
+        properties: {
+          serviceName: 'Microsoft.DBforPostgreSQL/flexibleServers'
+        }
+      }
+    ]
+  }
+}
+
+resource privateDns 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: dnsName
+  location: 'global'
+}
+
+resource vnetLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  name:  '${vnet.name}-link'
+  location: 'global'
+  parent: privateDns
+  properties: {
+    registrationEnabled: true
+    virtualNetwork: {
+      id: vnet.id
+    }
+  }
+}
+
+resource serverName_resource 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   name: serverName
   location: location
   sku: {
-    name: skuName
-    tier: skuTier
-    capacity: skuCapacity
-    size: '${skuSizeMB}'
-    family: skuFamily
+    name: dbInstanceType
+    tier: serverEdition
   }
   properties: {
-    createMode: 'Default'
-    version: postgresqlVersion
+    version: version
     administratorLogin: administratorLogin
     administratorLoginPassword: administratorLoginPassword
-    storageProfile: {
-      storageMB: skuSizeMB
-      backupRetentionDays: backupRetentionDays
-      geoRedundantBackup: geoRedundantBackup
+    network: {
+      delegatedSubnetResourceId: (json('\'${vnet.id}/subnets/${subnetName}\''))
+      privateDnsZoneArmResourceId: privateDns.id
+    }
+    highAvailability: {
+      mode: 'Disabled'
+    }
+    storage: {
+      storageSizeGB: skuSizeGB
+    }
+    backup: {
+      backupRetentionDays: 7
+      geoRedundantBackup: 'Disabled'
     }
   }
 }
