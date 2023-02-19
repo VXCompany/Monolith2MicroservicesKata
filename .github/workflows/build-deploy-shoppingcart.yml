@@ -2,7 +2,7 @@ name: Build and deploy the shoppingcart
 
 env:
   DOTNET_VERSION: '7.0'
-  DOTNET_PROJECT_FILEPATH: 'src/Monolith/Monolith.API/Monolith.API.csproj'
+  DOTNET_PROJECT_FILEPATH: 'src/Services/ShoppingCart/ShoppingCart.API/ShoppingCart.API.csproj'
   AZURE_WEBAPP_NAME: app-shopping
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
@@ -64,5 +64,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.SHOPPING_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

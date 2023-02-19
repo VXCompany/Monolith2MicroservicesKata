@@ -8,9 +8,8 @@ param skuSizeGB int = 32
 param dbInstanceType string = 'Standard_B1ms'
 param version string = '14'
 
-var webAppName = toLower('app-monolith')
-var vnetName = 'vnet-${webAppName}'
-var subnetName = 'subnet-pgsql-monolith'
+var vnetName = 'vnet-kennisdag'
+var subnetName = 'subnet-dbs'
 var dnsName = 'dns-kennisdag.postgres.database.azure.com'
 
 resource vnet 'Microsoft.Network/virtualNetworks@2022-07-01' existing = {
