@@ -1,6 +1,6 @@
 param sku string = 'B2'
 param location string = resourceGroup().location
-param linuxFxVersion string = 'DOTNETCORE:7.0'
+param linuxFxVersion string = 'DOTNETCORE|7.0'
 
 var appServicePlanName = toLower('plan')
 var webAppNameMonolith = toLower('app-monolith')
@@ -70,6 +70,8 @@ module appSettingsMonolith 'appsettings.bicep' = {
     currentAppSettings: list(resourceId('Microsoft.Web/sites/config', appServiceMonolith.name, 'appsettings'), '2022-03-01').properties
     appSettings: {
       WEBSITE_WEBDEPLOY_USE_SCM: 'true' // See https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions
+      ASPNETCORE_ENVIRONMENT: 'Development'
+      ASPNETCORE_HTTPS_PORT: '443'
     }
   }
 }
@@ -94,6 +96,8 @@ module appSettingsShoppingCart 'appsettings.bicep' = {
     currentAppSettings: list(resourceId('Microsoft.Web/sites/config', appServiceShoppingCart.name, 'appsettings'), '2022-03-01').properties
     appSettings: {
       WEBSITE_WEBDEPLOY_USE_SCM: 'true'
+      ASPNETCORE_ENVIRONMENT: 'Development'
+      ASPNETCORE_HTTPS_PORT: '443'
     }
   }
 }
@@ -118,6 +122,8 @@ module appSettingsGateway 'appsettings.bicep' = {
     currentAppSettings: list(resourceId('Microsoft.Web/sites/config', appServiceGateway.name, 'appsettings'), '2022-03-01').properties
     appSettings: {
       WEBSITE_WEBDEPLOY_USE_SCM: 'true'
+      ASPNETCORE_ENVIRONMENT: 'Development'
+      ASPNETCORE_HTTPS_PORT: '443'
     }
   }
 }
