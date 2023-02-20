@@ -22,6 +22,7 @@ builder.Services.AddShoppingCart();
 builder.Services.AddOrderManagement();
 builder.Services.AddSimulation();
 builder.Services.AddIntegration();
+builder.Services.AddNotifications();
 
 builder.Services.AddInfra(config);
 

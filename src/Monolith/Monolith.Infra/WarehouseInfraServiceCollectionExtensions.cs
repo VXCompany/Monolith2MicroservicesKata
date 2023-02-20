@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Warehouse.Infra;
 using Warehouse.Infra.BasketService;
 
 
+// Resharper disable once CheckNamespace
+namespace Microsoft.Extensions.DependencyInjection;
 
 public static class WarehouseInfraServceCollectionExtensions
 {
@@ -23,6 +24,7 @@ public static class WarehouseInfraServceCollectionExtensions
         serviceCollection.AddTransient<IWarehouseRepository, WarehouseRepository>();
         serviceCollection.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
         serviceCollection.AddTransient<IOrderRepository, OrderRepository>();
+        serviceCollection.AddTransient<INotificationRepository, NotificationRepository>();
 
         return serviceCollection;
     }
