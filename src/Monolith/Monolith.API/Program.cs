@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Monolith.API.Endpoints;
-using Monolith.API.Integration;
 using Warehouse.Infra;
 
 var builder = WebApplication.CreateBuilder(args);

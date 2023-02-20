@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Monolith.Notifications\Monolith.Notifications.csproj" />
       <ProjectReference Include="..\Monolith.OrderManagement\Monolith.OrderManagement.csproj" />
       <ProjectReference Include="..\Monolith.ShoppingCart\Monolith.ShoppingCart.csproj" />
     </ItemGroup>

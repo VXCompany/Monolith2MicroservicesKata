@@ -1,4 +1,4 @@
-﻿using Monolith.API.Integration;
+﻿using Monolith.Integration;
 
 // Resharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
