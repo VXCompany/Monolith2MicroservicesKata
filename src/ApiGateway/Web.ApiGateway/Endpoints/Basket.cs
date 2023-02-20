@@ -13,21 +13,21 @@ public static class Basket
         basketGroup.MapPost("/{customerNumber}/checkout", CheckoutBasket);
     }
 
-    private static async Task<IResult> GetBasket([FromServices]MonolithHttpClient monolithHttpClient, string customerNumber)
+    private static async Task<IResult> GetBasket([FromServices]BasketHttpClientRouter basketHttpClientRouter, [FromHeader]bool? forceNewService, string customerNumber)
     {
-        var getBasketResult = await monolithHttpClient.GetBasket(customerNumber);
+        var getBasketResult = await basketHttpClientRouter.GetBasket(customerNumber, forceNewService == true);
         return Results.Ok(getBasketResult);
     }
     
-    static async Task<IResult> AddProduct([FromServices]MonolithHttpClient monolithHttpClient, string customerNumber, string productCode)
+    static async Task<IResult> AddProduct([FromServices]BasketHttpClientRouter basketHttpClientRouter, [FromHeader]bool? forceNewService, string customerNumber, string productCode)
     {
-        monolithHttpClient.AddProduct(customerNumber, productCode);
+        basketHttpClientRouter.AddProduct(customerNumber, productCode, forceNewService == true);
         return Results.Ok();
     }
 
-    private static async Task<IResult> CheckoutBasket([FromServices]MonolithHttpClient monolithHttpClient, string customerNumber)
+    private static async Task<IResult> CheckoutBasket([FromServices]BasketHttpClientRouter basketHttpClientRouter, [FromHeader]bool? forceNewService, string customerNumber)
     {
-        await monolithHttpClient.CheckoutBasket(customerNumber);
+        await basketHttpClientRouter.CheckoutBasket(customerNumber, forceNewService == true);
 
         return Results.Ok();
     }

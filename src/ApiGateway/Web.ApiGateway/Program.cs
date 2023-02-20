@@ -16,7 +16,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient<MonolithHttpClient>(client => 
-    client.BaseAddress = new Uri(config["MonolithServiceConnection:MonolithServiceUrl"]));
+    client.BaseAddress = new Uri(config["MonolithServiceUri"]));
+
+builder.Services.AddHttpClient<BasketServiceHttpClient>(client => 
+    client.BaseAddress = new Uri(config["NotificationServiceUri"]));
+
+builder.Services.AddHttpClient<BasketServiceHttpClient>(client => 
+    client.BaseAddress = new Uri(config["BasketServiceUri"]));
+
+builder.Services.AddTransient<BasketHttpClientRouter>();
 
 var app = builder.Build();
 
