@@ -1,9 +1,9 @@
-name: Build and deploy the shoppingcart
+name: TEAM 0 - deploy the shoppingcart
 
 env:
   DOTNET_VERSION: '7.0'
   DOTNET_PROJECT_FILEPATH: 'src/Services/ShoppingCart/ShoppingCart.API/ShoppingCart.API.csproj'
-  AZURE_WEBAPP_NAME: app-shopping
+  AZURE_WEBAPP_NAME: app-shopping-team-0
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Development'
+      name: 'TEAM 0'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
