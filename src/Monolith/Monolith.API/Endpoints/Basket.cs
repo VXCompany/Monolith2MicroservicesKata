@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Monolith.API.WebResponses;
 using Monolith.Integration;
-using Monolith.ShoppingCart;
 using Monolith.ShoppingCart.UseCases.AddItemToShoppingCartUseCase;
 using Monolith.ShoppingCart.UseCases.GetShoppingCartUseCase;
-using Warehouse.Infra.Data;
 
 namespace Monolith.API.Endpoints;
 
@@ -25,9 +24,22 @@ public static class Basket
         return Results.Ok();
     }
 
-    static async Task<Cart> GetBasket([FromServices]GetShoppingCartUseCase getShoppingCartUse, string customerNumber)
+    static async Task<GetBasketWebResponse> GetBasket([FromServices]GetShoppingCartUseCase getShoppingCartUse, string customerNumber)
     {
-        return await getShoppingCartUse.GetShoppingCart(new GetShoppingCartRequest(customerNumber));
+        var cartData = await getShoppingCartUse.GetShoppingCart(new GetShoppingCartRequest(customerNumber));
+        return new GetBasketWebResponse
+        {
+            Id = cartData.Id,
+            ApplicationSource = cartData.ApplicationSource,
+            CustomerNumber = cartData.CustomerNumber,
+            Items = cartData.Items.Select(item => new CartItem
+            {
+                Id = item.Id,
+                ApplicationSource = item.ApplicationSource,
+                ProductCode = item.ProductCode,
+                Amount = item.Amount
+            }).ToList()
+        };
     }
     
     static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerNumber, string productCode)

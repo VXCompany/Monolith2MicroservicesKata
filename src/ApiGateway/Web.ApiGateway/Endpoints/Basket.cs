@@ -9,36 +9,26 @@ public static class Basket
     {
         var basketGroup = application.MapGroup("Basket");
         basketGroup.MapGet("/{customerNumber}", GetBasket);
-//        basketGroup.MapPost("/{customerNumber}", AddProduct);
-
-//        basketGroup.MapPost("/{customerNumber}/checkout", CheckoutBasket);
+        basketGroup.MapPost("/{customerNumber}", AddProduct);
+        basketGroup.MapPost("/{customerNumber}/checkout", CheckoutBasket);
     }
 
-    private static Task GetBasket([FromServices]MonolithHttpClient monolithHttpClient, string customerNumber)
+    private static async Task<IResult> GetBasket([FromServices]MonolithHttpClient monolithHttpClient, string customerNumber)
     {
-        throw new NotImplementedException();
+        var getBasketResult = await monolithHttpClient.GetBasket(customerNumber);
+        return Results.Ok(getBasketResult);
     }
-
-    /*
-    private static async Task<IResult> CheckoutBasket(string customerNumber, CheckoutBasketService checkoutBasketService)
+    
+    static async Task<IResult> AddProduct([FromServices]MonolithHttpClient monolithHttpClient, string customerNumber, string productCode)
     {
-        await checkoutBasketService.CheckoutBasket(customerNumber);
-
+        monolithHttpClient.AddProduct(customerNumber, productCode);
         return Results.Ok();
     }
 
-    static async Task<Cart> GetBasket([FromServices]GetShoppingCartUseCase getShoppingCartUse, string customerNumber)
+    private static async Task<IResult> CheckoutBasket([FromServices]MonolithHttpClient monolithHttpClient, string customerNumber)
     {
-        return await getShoppingCartUse.GetShoppingCart(new GetShoppingCartRequest(customerNumber));
-    }
-    
-    static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerNumber, string productCode)
-    {
-        await addItemToShoppingCartUseCase.AddItemToShoppingCartAsync(
-            new AddItemToShoppingCartRequest(customerNumber, productCode));
+        await monolithHttpClient.CheckoutBasket(customerNumber);
+
         return Results.Ok();
     }
-    */
-    
-    
 }
