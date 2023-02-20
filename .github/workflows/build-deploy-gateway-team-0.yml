@@ -1,4 +1,4 @@
-name: Build and Deploy the gateway
+name: TEAM 0 - Deploy the gateway
 
 env:
   DOTNET_VERSION: '7.0'
