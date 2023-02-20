@@ -1,4 +1,11 @@
+using Web.ApiGateway.Endpoints;
+
 var builder = WebApplication.CreateBuilder(args);
+
+IConfiguration config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables()
+    .Build();
 
 // Add services to the container.
 
@@ -19,6 +26,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.ConfigureBasketEndpoints();
 
 app.MapControllers();
 
