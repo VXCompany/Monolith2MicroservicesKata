@@ -1,9 +1,9 @@
-name: Team 0 - Deploy the gateway
+name: Build and Deploy the gateway
 
 env:
   DOTNET_VERSION: '7.0'
   DOTNET_PROJECT_FILEPATH: 'src/ApiGateway/Web.ApiGateway/Web.ApiGateway.csproj'
-  AZURE_WEBAPP_NAME: app-gateway-team-0
+  AZURE_WEBAPP_NAME: app-gateway-${{env.TEAM_NAME}}
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:
@@ -64,5 +64,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.GATEWAY_TEAM-0_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.GATEWAY_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
