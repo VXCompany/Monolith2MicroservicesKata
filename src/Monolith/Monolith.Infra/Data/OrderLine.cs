@@ -5,4 +5,5 @@ public class OrderLine
     public string ProductCode { get; set; }
     public int TotalOrdered { get; set; }
     public Order Order { get; set; }
+    public string ApplicationSource { get; set; } = "Monolith";
 }

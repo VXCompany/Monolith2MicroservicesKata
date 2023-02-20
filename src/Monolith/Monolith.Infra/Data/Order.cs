@@ -7,6 +7,7 @@
     public OrderStatus Status { get; set; }
     
     public ICollection<OrderLine> OrderLines { get; set; }
+    public string ApplicationSource { get; set; } = "Monolith";
 }
 
 public enum OrderStatus
