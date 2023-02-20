@@ -20,7 +20,7 @@ public class NotifyCustomerUseCase
         await _notificationRepository.Save(new Notification
         {
             id = Guid.NewGuid(),
-            NotifiedAt = DateTime.Now,
+            NotifiedAt = DateTime.Now.ToUniversalTime(),
             NotificationText = request.NotificationText,
             CustomerNumber = request.CustomerNumber
         });

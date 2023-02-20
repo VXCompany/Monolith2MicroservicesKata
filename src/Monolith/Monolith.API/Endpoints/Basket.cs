@@ -15,10 +15,10 @@ public static class Basket
         basketGroup.MapGet("/{customerNumber}", GetBasket);
         basketGroup.MapPost("/{customerNumber}", AddProduct);
 
-        basketGroup.MapPost("/{customerId}/checkout", CheckoutBasket);
+        basketGroup.MapPost("/{customerNumber}/checkout", CheckoutBasket);
     }
 
-    private static async Task<IResult> CheckoutBasket(HttpContext context, string customerNumber, CheckoutBasketService checkoutBasketService)
+    private static async Task<IResult> CheckoutBasket(string customerNumber, CheckoutBasketService checkoutBasketService)
     {
         await checkoutBasketService.CheckoutBasket(customerNumber);
 
