@@ -2,15 +2,17 @@
 param administratorLoginPassword string
 param administratorLogin string
 param location string = resourceGroup().location
-param serverName string
+
 param serverEdition string = 'Burstable'
 param skuSizeGB int = 32
 param dbInstanceType string = 'Standard_B1ms'
 param version string = '14'
+param nameSuffix string 
 
+var serverName = 'pgsql-${nameSuffix}'
 var vnetName = 'vnet-kennisdag'
 var subnetName = 'subnet-dbs'
-var dnsName = 'dns-kennisdag.postgres.database.azure.com'
+var dnsName = 'dns-kennisdag-${nameSuffix}.postgres.database.azure.com'
 
 resource vnet 'Microsoft.Network/virtualNetworks@2022-07-01' existing = {
   name: vnetName
@@ -35,19 +37,20 @@ resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-07-01' = {
 resource privateDns 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: dnsName
   location: 'global'
-}
 
-resource vnetLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  name:  '${vnet.name}-link'
-  location: 'global'
-  parent: privateDns
-  properties: {
-    registrationEnabled: true
-    virtualNetwork: {
-      id: vnet.id
+  resource vnetLink 'virtualNetworkLinks' = {
+    name:  '${vnet.name}-link'
+    location: 'global'
+    properties: {
+      registrationEnabled: true
+      virtualNetwork: {
+        id: vnet.id
+      }
     }
   }
 }
+
+
 
 resource serverName_resource 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   name: serverName

@@ -1,37 +1,33 @@
 param sku string = 'B2'
 param location string = resourceGroup().location
 param linuxFxVersion string = 'DOTNETCORE|7.0'
+param nameSuffix string 
 
-var appServicePlanName = toLower('plan')
-var webAppNameMonolith = toLower('app-monolith')
-var webAppNameShoppingCart = toLower('app-shopping')
-var webAppNameGateway = toLower('app-gateway')
+var appServicePlanName = 'plan'
+var webAppNameMonolith = 'app-monolith-${nameSuffix}'
+var webAppNameShoppingCart = 'app-shopping-${nameSuffix}'
+var webAppNameGateway = 'app-gateway-${nameSuffix}'
+var webAppNameNotifications = 'app-notify-${nameSuffix}'
 
 var vnetName = 'vnet-kennisdag'
 var subnetName = 'subnet-webapps'
 
-resource vnet 'Microsoft.Network/virtualNetworks@2022-07-01' = {
+
+resource vnet 'Microsoft.Network/virtualNetworks@2022-07-01' existing = {
   name: vnetName
-  location: location
+}
+
+resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-07-01' = {
+  name: subnetName
+  parent: vnet
+  
   properties: {
-    addressSpace: {
-      addressPrefixes: [
-        '10.0.0.0/16'
-      ]
-    }
-    subnets: [
+    addressPrefix: '10.0.0.0/24'
+    delegations: [
       {
-        name: subnetName
+        name: 'Microsoft.Web/serverFarms'
         properties: {
-          addressPrefix: '10.0.0.0/24'
-          delegations: [
-            {
-              name: 'Microsoft.Web/serverFarms'
-              properties: {
-                serviceName: 'Microsoft.Web/serverFarms'
-              }
-            }
-          ]
+          serviceName: 'Microsoft.Web/serverFarms'
         }
       }
     ]
@@ -120,6 +116,32 @@ module appSettingsGateway 'appsettings.bicep' = {
     webAppName: webAppNameGateway
     // Get the current appsettings
     currentAppSettings: list(resourceId('Microsoft.Web/sites/config', appServiceGateway.name, 'appsettings'), '2022-03-01').properties
+    appSettings: {
+      WEBSITE_WEBDEPLOY_USE_SCM: 'true'
+      ASPNETCORE_ENVIRONMENT: 'Development'
+      ASPNETCORE_HTTPS_PORT: '443'
+    }
+  }
+}
+
+resource appServiceNotifications 'Microsoft.Web/sites@2022-03-01' = {
+  name: webAppNameNotifications
+  location: location
+  properties: {
+    serverFarmId: appServicePlan.id
+    virtualNetworkSubnetId: vnet.properties.subnets[0].id
+    siteConfig: {
+      linuxFxVersion: linuxFxVersion
+    }
+  }
+}
+
+module appSettingsNotifications 'appsettings.bicep' = {
+  name: '${webAppNameNotifications}-appsettings'
+  params: {
+    webAppName: webAppNameNotifications
+    // Get the current appsettings
+    currentAppSettings: list(resourceId('Microsoft.Web/sites/config', appServiceNotifications.name, 'appsettings'), '2022-03-01').properties
     appSettings: {
       WEBSITE_WEBDEPLOY_USE_SCM: 'true'
       ASPNETCORE_ENVIRONMENT: 'Development'
