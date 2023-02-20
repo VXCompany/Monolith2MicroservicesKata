@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Warehouse.Infra;
 using Warehouse.Infra.BasketService;
+using Warehouse.Infra.HttpClients;
 
 
 // Resharper disable once CheckNamespace
@@ -25,6 +26,12 @@ public static class WarehouseInfraServceCollectionExtensions
         serviceCollection.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
         serviceCollection.AddTransient<IOrderRepository, OrderRepository>();
         serviceCollection.AddTransient<INotificationRepository, NotificationRepository>();
+
+        serviceCollection.AddHttpClient<NotificationServiceHttpClient>(client => 
+            client.BaseAddress = new Uri(configuration["NotificationServiceUri"]));
+        
+        serviceCollection.AddHttpClient<BasketServiceHttpClient>(client => 
+            client.BaseAddress = new Uri(configuration["BasketServiceUri"]));
 
         return serviceCollection;
     }
