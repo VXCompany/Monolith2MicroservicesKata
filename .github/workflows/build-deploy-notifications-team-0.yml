@@ -3,7 +3,7 @@ name: TEAM 0 - deploy the notifications service
 env:
   DOTNET_VERSION: '7.0'
   DOTNET_PROJECT_FILEPATH: 'src/Services/Notifications/Notifications.API/Notifications.API.csproj'
-  AZURE_WEBAPP_NAME: app-notify-team-0
+  AZURE_WEBAPP_NAME: app-notify-team0
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:

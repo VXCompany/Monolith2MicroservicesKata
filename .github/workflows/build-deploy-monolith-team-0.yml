@@ -3,7 +3,7 @@ name: TEAM 0 - deploy the monolith
 env:
   DOTNET_VERSION: '7.0'
   DOTNET_PROJECT_FILEPATH: 'src/Monolith/Monolith.API/Monolith.API.csproj'
-  AZURE_WEBAPP_NAME: app-monolith-team-0
+  AZURE_WEBAPP_NAME: app-monolith-team0
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:

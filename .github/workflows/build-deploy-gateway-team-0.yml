@@ -3,7 +3,7 @@ name: TEAM 0 - Deploy the gateway
 env:
   DOTNET_VERSION: '7.0'
   DOTNET_PROJECT_FILEPATH: 'src/ApiGateway/Web.ApiGateway/Web.ApiGateway.csproj'
-  AZURE_WEBAPP_NAME: app-gateway-team-0
+  AZURE_WEBAPP_NAME: app-gateway-team0
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:
