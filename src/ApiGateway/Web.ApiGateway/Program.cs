@@ -25,6 +25,7 @@ builder.Services.AddHttpClient<BasketServiceHttpClient>(client =>
     client.BaseAddress = new Uri(config["BasketServiceUri"]));
 
 builder.Services.AddTransient<BasketHttpClientRouter>();
+builder.Services.AddTransient<WarehouseHttpClientRouter>();
 
 var app = builder.Build();
 
@@ -40,6 +41,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.ConfigureBasketEndpoints();
+app.ConfigureWarehouseEndpoints();
 
 app.MapControllers();
 
