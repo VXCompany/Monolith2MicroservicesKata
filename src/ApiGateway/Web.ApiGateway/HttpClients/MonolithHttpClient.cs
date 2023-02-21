@@ -44,4 +44,26 @@ public class MonolithHttpClient
         var requestUri = $"warehouse/receiveGoods";
         await _httpClient.PostAsync(requestUri, new StringContent(JsonSerializer.Serialize(receiveGoodsRequest)));
     }
+
+    // Simulation endpoints
+    public async Task DayHasPassed()
+    {
+        var requestUri = $"simulation/dayhaspassed";
+
+        await _httpClient.PatchAsync(requestUri, null);
+    }
+
+    public async Task UpdateHourlyWork()
+    {
+        var requestUri = $"simulation/updatehourlywork";
+
+        await _httpClient.PatchAsync(requestUri, null);
+    }
+
+    public async Task ResetSimulation()
+    {
+        var requestUri = $"simulation/resetsimulation";
+
+        await _httpClient.PatchAsync(requestUri, null);
+    }
 }
