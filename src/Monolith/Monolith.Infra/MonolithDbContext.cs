@@ -12,9 +12,9 @@ public class MonolithDbContext : DbContext, IUnitOfWork
     
     public DbSet<StockItem> Items => Set<StockItem>();
     public DbSet<Cart> Carts => Set<Cart>();
-
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<PickOrder> PickOrders => Set<PickOrder>();
+    public DbSet<Notification> Notifications => Set<Notification>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -54,6 +54,11 @@ public class MonolithDbContext : DbContext, IUnitOfWork
         modelBuilder
             .Entity<OrderLine>()
             .HasKey(ol => ol.Id);
+
+        modelBuilder
+            .Entity<Notification>()
+            .ToTable(nameof(Notification), "notification")
+            .HasKey(n => n.id);
     }
 
     public Task<int> SaveChangesAsync()

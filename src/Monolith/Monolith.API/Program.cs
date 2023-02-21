@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Monolith.API.Endpoints;
-using Monolith.API.Integration;
 using Warehouse.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +21,7 @@ builder.Services.AddShoppingCart();
 builder.Services.AddOrderManagement();
 builder.Services.AddSimulation();
 builder.Services.AddIntegration();
+builder.Services.AddNotifications();
 
 builder.Services.AddInfra(config);
 

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Monolith.API.Integration;
-using Monolith.ShoppingCart;
+using Monolith.API.WebResponses;
+using Monolith.Integration;
 using Monolith.ShoppingCart.UseCases.AddItemToShoppingCartUseCase;
 using Monolith.ShoppingCart.UseCases.GetShoppingCartUseCase;
-using Warehouse.Infra.Data;
 
 namespace Monolith.API.Endpoints;
 
@@ -15,19 +14,32 @@ public static class Basket
         basketGroup.MapGet("/{customerNumber}", GetBasket);
         basketGroup.MapPost("/{customerNumber}", AddProduct);
 
-        basketGroup.MapPost("/{customerId}/checkout", CheckoutBasket);
+        basketGroup.MapPost("/{customerNumber}/checkout", CheckoutBasket);
     }
 
-    private static async Task<IResult> CheckoutBasket(HttpContext context, string customerNumber, CheckoutBasketService checkoutBasketService)
+    private static async Task<IResult> CheckoutBasket(string customerNumber, CheckoutBasketService checkoutBasketService)
     {
         await checkoutBasketService.CheckoutBasket(customerNumber);
 
         return Results.Ok();
     }
 
-    static async Task<Cart> GetBasket([FromServices]GetShoppingCartUseCase getShoppingCartUse, string customerNumber)
+    static async Task<GetBasketWebResponse> GetBasket([FromServices]GetShoppingCartUseCase getShoppingCartUse, string customerNumber)
     {
-        return await getShoppingCartUse.GetShoppingCart(new GetShoppingCartRequest(customerNumber));
+        var cartData = await getShoppingCartUse.GetShoppingCart(new GetShoppingCartRequest(customerNumber));
+        return new GetBasketWebResponse
+        {
+            Id = cartData.Id,
+            ApplicationSource = cartData.ApplicationSource,
+            CustomerNumber = cartData.CustomerNumber,
+            Items = cartData.Items.Select(item => new CartItem
+            {
+                Id = item.Id,
+                ApplicationSource = item.ApplicationSource,
+                ProductCode = item.ProductCode,
+                Amount = item.Amount
+            }).ToList()
+        };
     }
     
     static async Task<IResult> AddProduct([FromServices]AddItemToShoppingCartUseCase addItemToShoppingCartUseCase, string customerNumber, string productCode)

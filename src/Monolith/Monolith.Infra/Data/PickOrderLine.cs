@@ -6,4 +6,5 @@ public class PickOrderLine
     public string ProductCode { get; set; }
     public int Amount { get; set; }
     public PickOrder PickOrder { get; set; }
+    public string ApplicationSource { get; set; } = "Monolith";
 }

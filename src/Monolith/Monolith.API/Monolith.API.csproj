@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Monolith.Integration\Monolith.Integration.csproj" />
+      <ProjectReference Include="..\Monolith.Notifications\Monolith.Notifications.csproj" />
       <ProjectReference Include="..\Monolith.OrderManagement\Monolith.OrderManagement.csproj" />
       <ProjectReference Include="..\Monolith.ShoppingCart\Monolith.ShoppingCart.csproj" />
       <ProjectReference Include="..\Monolith.Simulation\Monolith.Simulation.csproj" />

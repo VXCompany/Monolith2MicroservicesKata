@@ -58,4 +58,6 @@ dotnet ef migrations add add-count-for-inventory  -c WarehouseDbContext -p ..\Mo
 
 ## Credits 
 
-Code in the warehouse assembly is a direct copy from Emily Bache refactor Kata Gilded Rose. The original code can be found at the following location: https://github.com/emilybache/GildedRose-Refactoring-Kata
+Code in the warehouse assembly is a copy from Terry Hughes gilded rose kata which can be found at https://github.com/NotMyself/GildedRose
+
+Check github of Emily Bache if you would like to work on the kata in another language. This repo can be found at https://github.com/emilybache/GildedRose-Refactoring-Kata

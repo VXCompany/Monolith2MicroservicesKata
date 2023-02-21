@@ -9,4 +9,5 @@ public class StockItem
     public int Quality { get; set; }
     public int Count { get; set; }
     public int ReservedCount { get; set; }
+    public string ApplicationSource { get; set; } = "Monolith";
 }

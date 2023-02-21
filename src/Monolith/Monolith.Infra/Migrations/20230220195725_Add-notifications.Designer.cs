@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Warehouse.Infra;
@@ -11,9 +12,11 @@ using Warehouse.Infra;
 namespace Warehouse.Infra.Migrations
 {
     [DbContext(typeof(MonolithDbContext))]
-    partial class MonolithDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230220195725_Add-notifications")]
+    partial class Addnotifications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,10 +30,6 @@ namespace Warehouse.Infra.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("ApplicationSource")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("CustomerNumber")
                         .IsRequired()
@@ -55,10 +54,6 @@ namespace Warehouse.Infra.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("ApplicationSource")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid");
@@ -86,10 +81,6 @@ namespace Warehouse.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("ApplicationSource")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("CustomerNumber")
                         .IsRequired()
                         .HasColumnType("text");
@@ -107,10 +98,6 @@ namespace Warehouse.Infra.Migrations
 
                     b.Property<int>("Amount")
                         .HasColumnType("integer");
-
-                    b.Property<string>("ApplicationSource")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<Guid>("CartId")
                         .HasColumnType("uuid");
@@ -136,10 +123,6 @@ namespace Warehouse.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CustomerNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("NotificationText")
                         .IsRequired()
                         .HasColumnType("text");
@@ -157,10 +140,6 @@ namespace Warehouse.Infra.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("ApplicationSource")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<Guid>("ForOrder")
                         .HasColumnType("uuid");
@@ -182,10 +161,6 @@ namespace Warehouse.Infra.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ApplicationSource")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<Guid>("PickOrderId")
                         .HasColumnType("uuid");
 
@@ -205,10 +180,6 @@ namespace Warehouse.Infra.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("ApplicationSource")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int>("Count")
                         .HasColumnType("integer");

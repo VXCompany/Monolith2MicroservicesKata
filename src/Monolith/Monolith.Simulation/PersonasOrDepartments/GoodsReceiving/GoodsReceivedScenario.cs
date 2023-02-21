@@ -1,21 +1,21 @@
-﻿using Warehouse.Infra;
+﻿using Monolith.Integration;
+using Warehouse.Infra;
 using Warehouse.UseCases.ReceiveGoodsUseCase;
 
 namespace Monolith.Simulation.PersonasOrDepartments.GoodsReceiving;
 
 public class GoodsReceivedScenario
 {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IWarehouseRepository _warehouseRepository;
     private readonly IOrderRepository _orderRepository;
+    private readonly GoodsReceivedService _goodsReceivedService;
     private readonly ReceiveGoodsUseCase _receiveGoodsUseCase;
 
-    public GoodsReceivedScenario(IUnitOfWork unitOfWork, IWarehouseRepository warehouseRepository, IOrderRepository orderRepository, ReceiveGoodsUseCase receiveGoodsUseCase)
+    public GoodsReceivedScenario(IWarehouseRepository warehouseRepository, IOrderRepository orderRepository, GoodsReceivedService goodsReceivedService)
     {
-        _unitOfWork = unitOfWork;
         _warehouseRepository = warehouseRepository;
         _orderRepository = orderRepository;
-        _receiveGoodsUseCase = receiveGoodsUseCase;
+        _goodsReceivedService = goodsReceivedService;
     }
 
     public async Task RunScenario()
@@ -30,7 +30,7 @@ public class GoodsReceivedScenario
         receiveGoodsList = receiveGoodsList.Where(record => record != null).ToList();
         if (receiveGoodsList.Count > 0)
         {
-            await _receiveGoodsUseCase.ProcessReceivedGoodsAsync(new ReceiveGoodsRequest(receiveGoodsList!));
+            await _goodsReceivedService.GoodsReceived(new ReceiveGoodsRequest(receiveGoodsList!));
         }
     }
 

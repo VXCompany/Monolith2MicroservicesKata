@@ -7,8 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Monolith.Integration\Monolith.Integration.csproj" />
-      <ProjectReference Include="..\Monolith.Warehouse\Monolith.Warehouse.csproj" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Monolith.Infra\Monolith.Infra.csproj" />
     </ItemGroup>
 
 </Project>

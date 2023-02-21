@@ -8,4 +8,5 @@ public class PickOrder
     
     public PickOrderStatus Status { get; set; }
     public ICollection<PickOrderLine> PickOrderLines { get; set; }
+    public string ApplicationSource { get; set; } = "Monolith";
 }
