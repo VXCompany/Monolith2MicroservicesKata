@@ -12,7 +12,13 @@
 					"name": "Get Inventory",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "forceNewService",
+								"value": "false",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:5000/warehouse",
 							"protocol": "http",
@@ -31,7 +37,13 @@
 					"name": "Add Default Inventory",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "forceNewService",
+								"value": "false",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"receivedGoods\": [\r\n    {\r\n      \"productCode\": \"SPOIL-BRIE\",\r\n      \"quality\": 10,\r\n      \"sellIn\": 50,\r\n      \"AmountReceived\": 10\r\n    },\r\n    {\r\n      \"productCode\": \"TICK-TAFK\",\r\n      \"quality\": 20,\r\n      \"sellIn\": 20,\r\n      \"AmountReceived\": 5\r\n    },\r\n    {\r\n      \"productCode\": \"EPIC-Ragnaros\",\r\n      \"quality\": 80,\r\n      \"sellIn\": 50,\r\n      \"AmountReceived\": 1\r\n    },\r\n    {\r\n      \"productCode\": \"NORM-MoonJ\",\r\n      \"quality\": 25,\r\n      \"sellIn\": 20,\r\n      \"AmountReceived\": 10\r\n    }    \r\n  ]\r\n}",
@@ -65,7 +77,13 @@
 					"name": "Day Has Passed",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "forceNewService",
+								"value": "false",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:5000/simulation/dayhaspassed",
 							"protocol": "http",
@@ -85,7 +103,13 @@
 					"name": "Reset Simulation",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "forceNewService",
+								"value": "false",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:5000/simulation/resetsimulation",
 							"protocol": "http",
@@ -102,10 +126,16 @@
 					"response": []
 				},
 				{
-					"name": "Updaye Hourly Work",
+					"name": "Update Hourly Work",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "forceNewService",
+								"value": "false",
+								"type": "default"
+							}
+						]
 					},
 					"response": []
 				}
@@ -118,7 +148,13 @@
 					"name": "Get basket of customer",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "forceNewService",
+								"value": "false",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:5000/basket/C1234123",
 							"protocol": "http",
@@ -138,7 +174,13 @@
 					"name": "Add item to basket",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "forceNewService",
+								"value": "false",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -149,7 +191,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/basket/C1234123?productId=C53A964A-C57D-4C27-9BB0-198776837A99",
+							"raw": "http://localhost:5000/basket/C1234123?productCode=NORM-MoonJ",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -161,8 +203,8 @@
 							],
 							"query": [
 								{
-									"key": "productId",
-									"value": "C53A964A-C57D-4C27-9BB0-198776837A99"
+									"key": "productCode",
+									"value": "NORM-MoonJ"
 								}
 							]
 						}
@@ -173,7 +215,13 @@
 					"name": "Checkout",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "forceNewService",
+								"value": "false",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:5000/basket/C1234123/checkout",
 							"protocol": "http",
@@ -191,6 +239,26 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
