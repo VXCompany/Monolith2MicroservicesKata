@@ -5,6 +5,7 @@ namespace ShoppingCart.Infra;
 
 public class ShoppingCartDbContext : DbContext, IUnitOfWork
 {
+    public DbSet<Cart> Carts => Set<Cart>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
