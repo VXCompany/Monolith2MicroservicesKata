@@ -25,4 +25,8 @@
       <Folder Include="Migrations" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Common.Infra\Common.Infra.csproj" />
+    </ItemGroup>
+
 </Project>
