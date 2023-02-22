@@ -18,13 +18,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<MonolithHttpClient>(client => 
     client.BaseAddress = new Uri(config["MonolithServiceUri"]));
 
-builder.Services.AddHttpClient<BasketServiceHttpClient>(client => 
+builder.Services.AddHttpClient<NotificationServiceHttpClient>(client => 
     client.BaseAddress = new Uri(config["NotificationServiceUri"]));
 
 builder.Services.AddHttpClient<BasketServiceHttpClient>(client => 
     client.BaseAddress = new Uri(config["BasketServiceUri"]));
 
 builder.Services.AddTransient<BasketHttpClientRouter>();
+builder.Services.AddTransient<WarehouseHttpClientRouter>();
 
 var app = builder.Build();
 
@@ -40,6 +41,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.ConfigureBasketEndpoints();
+app.ConfigureWarehouseEndpoints();
+app.ConfigureSimulation();
 
 app.MapControllers();
 

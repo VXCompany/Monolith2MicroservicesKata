@@ -11,6 +11,7 @@ public class MonolithHttpClient
         _httpClient = httpClient;
     }
 
+    // basket or shoppingcart endpoints
     public async Task<JsonDocument> GetBasket(string customerNumber)
     {
         var responseMessage = await _httpClient.GetAsync($"basket/{customerNumber}");
@@ -29,45 +30,40 @@ public class MonolithHttpClient
         var requestUri = $"basket/{customerNumber}/checkout";
         await _httpClient.PostAsync(requestUri, null);
     }
-}
-
-public class BasketHttpClientRouter
-{
-    private readonly MonolithHttpClient _monolithHttpClient;
-    private readonly BasketServiceHttpClient _basketServiceHttpClient;
-
-    public BasketHttpClientRouter(MonolithHttpClient monolithHttpClient, BasketServiceHttpClient basketServiceHttpClient)
-    {
-        _monolithHttpClient = monolithHttpClient;
-        _basketServiceHttpClient = basketServiceHttpClient;
-    }
     
-    public async Task<JsonDocument> GetBasket(string customerNumber, bool forceNewService)
+    // Warehouse endpoints
+    public async Task<JsonDocument> GetInventory()
     {
-        if (forceNewService)
-        {
-            return await _basketServiceHttpClient.GetBasket(customerNumber);
-        }
-        return await _monolithHttpClient.GetBasket(customerNumber);
+        var responseMessage = await _httpClient.GetAsync($"warehouse");
+
+        return await responseMessage.Content.ReadFromJsonAsync<JsonDocument>();
     }
 
-    public async Task AddProduct(string customerNumber, string productCode, bool forceNewService)
+    public async Task ReceiveGoods(ReceiveGoodsRequest receiveGoodsRequest)
     {
-        if (forceNewService)
-        {
-            await _basketServiceHttpClient.AddProduct(customerNumber, productCode);
-            return;
-        }
-        await _monolithHttpClient.AddProduct(customerNumber, productCode);
+        var requestUri = $"warehouse/receiveGoods";
+        await _httpClient.PostAsync(requestUri, new StringContent(JsonSerializer.Serialize(receiveGoodsRequest)));
     }
 
-    public async Task CheckoutBasket(string customerNumber, bool forceNewService)
+    // Simulation endpoints
+    public async Task DayHasPassed()
     {
-        if (forceNewService)
-        {
-            await _basketServiceHttpClient.CheckoutBasket(customerNumber);
-            return;
-        }
-        await _monolithHttpClient.CheckoutBasket(customerNumber);
+        var requestUri = $"simulation/dayhaspassed";
+
+        await _httpClient.PatchAsync(requestUri, null);
+    }
+
+    public async Task UpdateHourlyWork()
+    {
+        var requestUri = $"simulation/updatehourlywork";
+
+        await _httpClient.PatchAsync(requestUri, null);
+    }
+
+    public async Task ResetSimulation()
+    {
+        var requestUri = $"simulation/resetsimulation";
+
+        await _httpClient.PatchAsync(requestUri, null);
     }
 }

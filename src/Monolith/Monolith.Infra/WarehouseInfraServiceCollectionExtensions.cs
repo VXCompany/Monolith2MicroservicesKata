@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Warehouse.Infra;
-using Warehouse.Infra.BasketService;
 using Warehouse.Infra.HttpClients;
 
 
@@ -17,8 +16,6 @@ public static class WarehouseInfraServceCollectionExtensions
             var connectionString = configuration.GetConnectionString("GildedRoseConnectionString");
             options.UseNpgsql(connectionString);
         });
-
-        serviceCollection.Configure<BasketServiceConnectionOptions>(configuration.GetSection(BasketServiceConnectionOptions.BasketServiceConnection));
 
         serviceCollection.AddScoped<IUnitOfWork>(sp => sp.GetService<MonolithDbContext>());
         
