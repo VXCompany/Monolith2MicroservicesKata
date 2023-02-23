@@ -23,6 +23,7 @@ public class GoodsReceivedService
     public async Task GoodsReceived(ReceiveGoodsRequest receiveGoodsRequest)
     {
         await _receiveGoodsUseCase.ProcessReceivedGoodsAsync(receiveGoodsRequest);
+
         await _notifyCustomerUseCase.NotifyCustomer(new NotifyCustomerRequest("-1", "Goods have arrived and stocks are updated"));
 
         await _unitOfWork.SaveChangesAsync();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Notifications.Infra;
+using Warehouse.Infra;
 
 // Resharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,8 @@ public static class NotificationsInfraServiceCollectionExtensions
             var connectionString = configuration.GetConnectionString("GildedRoseConnectionString");
             options.UseNpgsql(connectionString);
         });
-        
-        serviceCollection.AddScoped<IUnitOfWork>(sp => sp.GetService<NotificationsDbContext>());
+
+        serviceCollection.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<NotificationsDbContext>());
+        serviceCollection.AddScoped<INotificationRepository, NotificationRepository>();
     }
 }

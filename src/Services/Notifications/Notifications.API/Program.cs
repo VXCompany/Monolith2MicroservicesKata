@@ -1,3 +1,6 @@
+using Notifications.API.Endpoints;
+using Notifications.API.UseCases;
+
 var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration config = new ConfigurationBuilder()
@@ -14,6 +17,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddNotificationsServiceInfra(config);
 
+builder.Services.AddScoped<NotifyCustomerUseCase>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,9 +29,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
-app.MapControllers();
+app.ConfigureBasketEndpoints();
 
 app.Run();
