@@ -33,7 +33,7 @@ app.UseAuthorization();
 
 // app.MapControllers();
 
-app.MapPost("/", async ([FromBody] NotificationRequest request, [FromServices] NotificationsDbContext db) =>
+app.MapPost("/notification", async ([FromBody] NotificationRequest request, [FromServices] NotificationsDbContext db) =>
 {
     await db.AddAsync(new Notification
     {
