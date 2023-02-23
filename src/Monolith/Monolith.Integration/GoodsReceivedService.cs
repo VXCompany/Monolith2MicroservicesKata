@@ -1,5 +1,4 @@
 using Monolith.Notifications;
-using Monolith.Notifications.UseCases.NotifyCustomerUseCase;
 using Warehouse.Infra;
 using Warehouse.UseCases.ReceiveGoodsUseCase;
 

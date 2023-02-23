@@ -1,5 +1,4 @@
 ﻿using Monolith.Notifications;
-using Monolith.Notifications.UseCases.NotifyCustomerUseCase;
 using Monolith.OrderManagement.UseCases.CreateOrderUseCase;
 using Monolith.ShoppingCart.UseCases.CheckoutBasketUseCase;
 using Warehouse.Infra;

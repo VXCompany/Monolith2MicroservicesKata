@@ -1,5 +1,4 @@
-﻿using Monolith.Notifications.UseCases.NotifyCustomerUseCase;
-using Warehouse.Infra.HttpClients;
+﻿using Warehouse.Infra.HttpClients;
 
 namespace Monolith.Notifications;
 

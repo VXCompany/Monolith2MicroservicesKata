@@ -1,3 +1,3 @@
-namespace Monolith.Notifications.UseCases.NotifyCustomerUseCase;
+namespace Monolith.Notifications;
 
 public record NotifyCustomerRequest(string CustomerNumber, string NotificationText);
