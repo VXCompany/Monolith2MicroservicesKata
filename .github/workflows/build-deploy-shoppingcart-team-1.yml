@@ -1,15 +1,15 @@
-name: TEAM 0 - deploy the monolith
+name: TEAM 0 - deploy the shoppingcart
 
 env:
   DOTNET_VERSION: '7.0'
-  DOTNET_PROJECT_FILEPATH: 'src/Monolith/Monolith.API/Monolith.API.csproj'
-  AZURE_WEBAPP_NAME: app-monolith-team0
+  DOTNET_PROJECT_FILEPATH: 'src/Services/ShoppingCart/ShoppingCart.API/ShoppingCart.API.csproj'
+  AZURE_WEBAPP_NAME: app-shopping-team1
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:
   push:
     branches:
-      - 'team0'
+      - 'team1'
   workflow_dispatch:
 
 permissions:
@@ -67,5 +67,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.MONOLITH_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.SHOPPING_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

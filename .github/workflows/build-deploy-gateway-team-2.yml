@@ -1,15 +1,15 @@
-name: TEAM 0 - deploy the monolith
+name: TEAM 0 - deploy the gateway
 
 env:
   DOTNET_VERSION: '7.0'
-  DOTNET_PROJECT_FILEPATH: 'src/Monolith/Monolith.API/Monolith.API.csproj'
-  AZURE_WEBAPP_NAME: app-monolith-team0
+  DOTNET_PROJECT_FILEPATH: 'src/ApiGateway/Web.ApiGateway/Web.ApiGateway.csproj'
+  AZURE_WEBAPP_NAME: app-gateway-team2
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:
   push:
     branches:
-      - 'team0'
+      - 'team2'
   workflow_dispatch:
 
 permissions:
@@ -18,7 +18,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -67,5 +66,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.MONOLITH_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.GATEWAY_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

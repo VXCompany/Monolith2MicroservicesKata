@@ -10,7 +10,6 @@ on:
   push:
     branches:
       - 'team0'
-
   workflow_dispatch:
 
 permissions:
