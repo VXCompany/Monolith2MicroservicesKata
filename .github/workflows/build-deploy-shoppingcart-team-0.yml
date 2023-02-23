@@ -10,6 +10,8 @@ on:
   push:
     branches:
       - 'team0'
+    paths:
+      - 'src/Services/ShoppingCart/**'
   workflow_dispatch:
 
 permissions:

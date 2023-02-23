@@ -10,6 +10,8 @@ on:
   push:
     branches:
       - 'team2'
+    paths:
+      - 'src/ApiGateway/**'
   workflow_dispatch:
 
 permissions:

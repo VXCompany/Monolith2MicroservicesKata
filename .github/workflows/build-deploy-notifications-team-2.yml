@@ -10,6 +10,8 @@ on:
   push:
     branches:
       - 'team2'
+    paths:
+      - 'src/Services/Notifications/**'
   workflow_dispatch:
 
 permissions:

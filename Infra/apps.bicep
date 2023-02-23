@@ -70,7 +70,7 @@ module appSettingsMonolith 'appsettings.bicep' = {
       ASPNETCORE_HTTPS_PORT: '443'
       NotificationServiceUri: 'https://app-notify-${nameSuffix}.azurewebsites.net'
       BasketServiceUri: 'https://app-shopping-${nameSuffix}.azurewebsites.net'
-      ConnectionStrings__GildedRoseConnectionString: 'User ID=postgres;Password=replaceme;Host=pgsql--${nameSuffix}.postgres.database.azure.com;Port=5432;Database=gildedrose;Pooling=true;'
+      ConnectionStrings__GildedRoseConnectionString: 'User ID=postgres;Password=replaceme;Host=pgsql-${nameSuffix}.postgres.database.azure.com;Port=5432;Database=gildedrose;Pooling=true;'
     }
   }
 }

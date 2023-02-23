@@ -10,6 +10,8 @@ on:
   push:
     branches:
       - 'team2'
+    paths:
+      - 'src/Monolith/**'
   workflow_dispatch:
 
 permissions:
