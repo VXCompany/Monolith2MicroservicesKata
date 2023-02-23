@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
+using Notifications.Infra;
+using Notifications.Infra.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration config = new ConfigurationBuilder()
@@ -27,6 +31,23 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+// app.MapControllers();
+
+app.MapPost("/", async ([FromBody] NotificationRequest request, [FromServices] NotificationsDbContext db) =>
+{
+    await db.AddAsync(new Notification
+    {
+        id = Guid.NewGuid(),
+        NotifiedAt = DateTime.Now.ToUniversalTime(),
+        NotificationText = request.NotificationText,
+        CustomerNumber = request.CustomerNumber
+    });
+
+    await db.SaveChangesAsync();
+    
+    return Results.Ok();
+});
 
 app.Run();
+
+public record NotificationRequest(string NotificationText, string CustomerNumber);
