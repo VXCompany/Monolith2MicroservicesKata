@@ -7,12 +7,12 @@ namespace Monolith.Integration;
 public class GoodsReceivedService
 {
     private readonly ReceiveGoodsUseCase _receiveGoodsUseCase;
-    private readonly NotifyCustomerUseCase _notifyCustomerUseCase;
+    private readonly INotifyCustomerUseCase _notifyCustomerUseCase;
     private readonly IUnitOfWork _unitOfWork;
 
     public GoodsReceivedService(
         ReceiveGoodsUseCase receiveGoodsUseCase,
-        NotifyCustomerUseCase notifyCustomerUseCase,
+        INotifyCustomerUseCase notifyCustomerUseCase,
         IUnitOfWork unitOfWork)
     {
         _receiveGoodsUseCase = receiveGoodsUseCase;

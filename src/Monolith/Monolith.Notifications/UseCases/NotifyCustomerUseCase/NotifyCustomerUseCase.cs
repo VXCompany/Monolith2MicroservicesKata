@@ -3,7 +3,7 @@ using Warehouse.Infra.Data;
 
 namespace Monolith.Notifications.UseCases.NotifyCustomerUseCase;
 
-public class NotifyCustomerUseCase
+public class NotifyCustomerUseCase : INotifyCustomerUseCase
 {
     private readonly INotificationRepository _notificationRepository;
 
@@ -11,7 +11,7 @@ public class NotifyCustomerUseCase
     {
         _notificationRepository = notificationRepository;
     }
-    
+
     public async Task NotifyCustomer(NotifyCustomerRequest request)
     {
         // some logic to determine best notification type depending on customer preferences..
