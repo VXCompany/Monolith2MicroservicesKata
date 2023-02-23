@@ -1,4 +1,4 @@
-name: TEAM 0 - deploy the monolith
+name: TEAM 2 - deploy the monolith
 
 env:
   DOTNET_VERSION: '7.0'

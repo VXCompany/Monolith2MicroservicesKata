@@ -1,4 +1,4 @@
-name: TEAM 0 - deploy the notifications
+name: TEAM 2 - deploy the notifications
 
 env:
   DOTNET_VERSION: '7.0'

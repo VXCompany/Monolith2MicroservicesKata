@@ -1,4 +1,4 @@
-name: TEAM 0 - deploy the shoppingcart
+name: TEAM 2 - deploy the shoppingcart
 
 env:
   DOTNET_VERSION: '7.0'
