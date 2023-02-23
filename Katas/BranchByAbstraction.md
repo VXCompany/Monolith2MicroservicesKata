@@ -18,29 +18,36 @@ Branch by abstraction has 4 distinct phases.
 1. Switch the abstraction to use the new implementation
 1. Remove the old implementation and possibly remove the abstraction
 
-
-
+The following visuals and descriptions will guide you through the steps.
 
 ## Exercise: extract Notification service 
 
-Step 1: Create an abstraction
+### Step 1: Create an abstraction
 
-Find the boundary of the notification service. Create an abstraction for this boundary. Define the methods in this abstraction which will service the functionality.
+Find a logical 'seam', between the components in the solution where you can  define a contract of sorts to use the functionality of the notifications component. If you can't find a 'seam' then create a contract for the notifications component yourself. Then create an abstraction (interface) for that contract.
+![Step1 Branch by Abstraction](./Step1BranchByAbstraction.jpg)
 
-Step 2: Change the cliënts of the existing functionality
+### Step 2: Change the cliënts of the existing functionality
 
+The next step is to change the cliënts using the notifications logic. They should be using the abstraction instead of the component directly.
+![Step2 Branch by Abstraction](./Step2BranchByAbstraction.jpg)
 
-Step 3: Create a new implementation
+### Step 3: Create a new implementation
+Now it's time to create the notifications service. There are multiple angles to do this in enterprise situations. Depending on the situation you should decide what to do. Some ideas are:
+* Copy the entire monolithic codebase into a new service, get it running asap and remove all unnecesarry code.
+* When the monolith is cleanly seperated into functional modules then you can copy the module logic itself
+* You can completely rewrite the service.
 
-Step 3.1: Duplicate the notification logic into the notifications service and make sure the endpoints are working
+For this kata you could probably best go for copying the module logic from the monolith to the new service, and add an endpoint to it.
 
-Step 3.2: Create a new implementation which will call the proper endpoints
+![Step3 Branch by Abstraction](./Step3BranchByAbstraction.jpg)
 
-Step 4: Switch the abstraction to use the new implementation
+### Step 4: Switch the abstraction to use the new implementation
+The next step is actually using the new service. To do this you'll need to create an implementation on the abstraction you created in step 1. This new implementation routes the call to the newly created notifications service.
+![Step4 Branch by Abstraction](./Step4BranchByAbstraction.jpg)
 
-If you want to be bold, use a feature toggle to darklaunch the new notification service. You might want to route traffic of al customernumers ending with '1'. This way you can test the load. In an enterprise setting you might decide to 'parallel run' the new service by calling both the old and new functionality and validate the output of each functionality. This is a form of production testing which might help you validate the logic and give control on when to go live.
+### Step 5: Clean up the old code
 
+Remove the old logic from the monolith. Finish with removing the abstraction if you don't plan to use it anymore.
 
-Step 5: Clean up the old code
-
-Remove the old logic from the monolith. Finish with removing the abstraction.
+![Step5 Branch by Abstraction](./Step5BranchByAbstraction.jpg)
