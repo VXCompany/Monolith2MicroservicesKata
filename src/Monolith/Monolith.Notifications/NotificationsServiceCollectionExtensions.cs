@@ -1,4 +1,5 @@
-﻿using Monolith.Notifications.UseCases.NotifyCustomerUseCase;
+﻿using Monolith.Notifications;
+using Monolith.Notifications.UseCases.NotifyCustomerUseCase;
 
 
 // Resharper disable once CheckNamespace
@@ -8,6 +9,7 @@ public static class NotificationsServiceCollectionExtensions
 {
     public static void AddNotifications(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddTransient<NotifyCustomerUseCase>();
+        // serviceCollection.AddTransient<NotifyCustomerUseCase>();
+        serviceCollection.AddTransient<INotifier, NotifyCustomerUseCase>();
     }
 }

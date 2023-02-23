@@ -3,7 +3,7 @@ using Warehouse.Infra.Data;
 
 namespace Monolith.Notifications.UseCases.NotifyCustomerUseCase;
 
-public class NotifyCustomerUseCase
+public class NotifyCustomerUseCase : INotifier
 {
     private readonly INotificationRepository _notificationRepository;
 

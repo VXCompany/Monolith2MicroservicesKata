@@ -1,4 +1,5 @@
-﻿using Monolith.Notifications.UseCases.NotifyCustomerUseCase;
+﻿using Monolith.Notifications;
+using Monolith.Notifications.UseCases.NotifyCustomerUseCase;
 using Monolith.OrderManagement.UseCases.CreateOrderUseCase;
 using Monolith.ShoppingCart.UseCases.CheckoutBasketUseCase;
 using Warehouse.Infra;
@@ -9,17 +10,17 @@ public class CheckoutBasketService
 {
     private readonly CheckoutBasketUseCase _checkoutBasketUseCase;
     private readonly CreateOrderUseCase _createOrderUseCase;
-    private readonly NotifyCustomerUseCase _notifyCustomerUseCase;
+    private readonly INotifier _notifier;
     private readonly IUnitOfWork _unitOfWork;
 
     public CheckoutBasketService(CheckoutBasketUseCase checkoutBasketUseCase,
         CreateOrderUseCase createOrderUseCase,
-        NotifyCustomerUseCase notifyCustomerUseCase,
+        INotifier notifier,
         IUnitOfWork unitOfWork)
     {
         _checkoutBasketUseCase = checkoutBasketUseCase;
         _createOrderUseCase = createOrderUseCase;
-        _notifyCustomerUseCase = notifyCustomerUseCase;
+        _notifier = notifier;
         _unitOfWork = unitOfWork;
     }
     
@@ -29,7 +30,7 @@ public class CheckoutBasketService
         
         await _createOrderUseCase.CreateOrder(new CreateOrderRequest(checkedOutBasket.CheckedOutCart));
 
-        await _notifyCustomerUseCase.NotifyCustomer(new NotifyCustomerRequest(customerNumber, "Order created"));
+        await _notifier.NotifyCustomer(new NotifyCustomerRequest(customerNumber, "Order created"));
         
         await _unitOfWork.SaveChangesAsync();
     }
