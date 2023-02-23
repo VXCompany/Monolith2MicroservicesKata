@@ -1,16 +1,25 @@
 # Pattern: Branch by Abstraction
 
-With the strangler fig pattern, we intercepte traffic on the perimeter of our system and moved it to a new microservice. In this Kata we used the ApiGateway to do this routing for us.
+With this first kata we will extract the notification service. We will move from ![SourceSolution](../components.jpg)
+To the following target solution.
 
-However, if we want to extract a piece of logic into a service which isn't at the perimeter of our system, then we need another pattern.
-Branch by Abstraction is a pattern which can help extract internal logic.
+![TargetSolution](./BranchByAbstractionTarget.jpg)
 
-Branch by abstraction roughly works as follows:
-1. Create an abstraction for the logic you want to extract.
-1. Change the cliënts of the existing functionality to use the new abstraction
+You'll notice that the notification functionality is internal to the monolith, only used by the components _OrderManagement_, _ShoppingCart_ and _Warehouse_
+
+We will need a strategy to move the notifications logic into it's own service, and then route the calls from the internal components to this new service.
+
+An useful pattern for this is Branch by Abstraction.
+
+Branch by abstraction has 4 distinct phases.
+1. Create an abstraction for the logic you want to extract
+1. Change the cliënts of the exsting functionality to use the new abstraction
 1. Create a new implementation replacing the old functionality
 1. Switch the abstraction to use the new implementation
-1. Clean up the abstraction and remove the old implementation
+1. Remove the old implementation and possibly remove the abstraction
+
+
+
 
 ## Exercise: extract Notification service 
 

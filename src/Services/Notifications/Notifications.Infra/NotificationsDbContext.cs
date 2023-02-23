@@ -5,6 +5,11 @@ namespace Notifications.Infra;
 
 public class NotificationsDbContext : DbContext, IUnitOfWork
 {
+    public NotificationsDbContext(DbContextOptions<NotificationsDbContext> options) : base(options)
+    {
+        
+    }
+    
     public DbSet<Notification> Notifications => Set<Notification>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
