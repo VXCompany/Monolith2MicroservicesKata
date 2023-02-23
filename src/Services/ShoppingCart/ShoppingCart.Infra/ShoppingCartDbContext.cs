@@ -5,6 +5,11 @@ namespace ShoppingCart.Infra;
 
 public class ShoppingCartDbContext : DbContext, IUnitOfWork
 {
+    public ShoppingCartDbContext(DbContextOptions<ShoppingCartDbContext> options) : base(options)
+    {
+        
+    }
+    
     public DbSet<Cart> Carts => Set<Cart>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
