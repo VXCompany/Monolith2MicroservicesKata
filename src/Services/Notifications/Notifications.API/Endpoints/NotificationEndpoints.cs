@@ -5,7 +5,7 @@ namespace Notifications.API.Endpoints;
 
 public static class NotificationEndpoints
 {
-    public static void ConfigureBasketEndpoints(this WebApplication application)
+    public static void ConfigureNotificationEndpoints(this WebApplication application)
     {
         application.MapPost("/{notifycustomer}", NotifyCustomer);
     }
