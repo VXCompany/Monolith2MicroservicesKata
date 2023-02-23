@@ -1,3 +1,5 @@
+using ShoppingCart.API.Endpoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration config = new ConfigurationBuilder()
@@ -29,6 +31,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+// app.MapControllers();
+app.ConfigureShoppingCartEndpoints();
 
 app.Run();
