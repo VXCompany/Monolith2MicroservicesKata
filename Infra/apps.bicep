@@ -68,6 +68,9 @@ module appSettingsMonolith 'appsettings.bicep' = {
       WEBSITE_WEBDEPLOY_USE_SCM: 'true' // See https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions
       ASPNETCORE_ENVIRONMENT: 'Development'
       ASPNETCORE_HTTPS_PORT: '443'
+      NotificationServiceUri: 'https://app-notify-${nameSuffix}.azurewebsites.net'
+      BasketServiceUri: 'https://app-shopping-${nameSuffix}.azurewebsites.net'
+      ConnectionStrings__GildedRoseConnectionString: 'User ID=postgres;Password=replaceme;Host=pgsql--${nameSuffix}.postgres.database.azure.com;Port=5432;Database=gildedrose;Pooling=true;'
     }
   }
 }
@@ -94,6 +97,8 @@ module appSettingsShoppingCart 'appsettings.bicep' = {
       WEBSITE_WEBDEPLOY_USE_SCM: 'true'
       ASPNETCORE_ENVIRONMENT: 'Development'
       ASPNETCORE_HTTPS_PORT: '443'
+        NotificationServiceUri: 'https://app-notify-${nameSuffix}.azurewebsites.net'
+        ConnectionStrings__GildedRoseConnectionString: 'User ID=postgres;Password=replaceme;Host=pgsql-${nameSuffix}.postgres.database.azure.com;Port=5432;Database=gildedrose;Pooling=true;'   
     }
   }
 }
@@ -120,6 +125,9 @@ module appSettingsGateway 'appsettings.bicep' = {
       WEBSITE_WEBDEPLOY_USE_SCM: 'true'
       ASPNETCORE_ENVIRONMENT: 'Development'
       ASPNETCORE_HTTPS_PORT: '443'
+      MonolithServiceUri: 'https://app-monolith-${nameSuffix}.azurewebsites.net'
+      NotificationServiceUri: 'https://app-notify-${nameSuffix}.azurewebsites.net'
+      BasketServiceUri: 'https://app-shopping-${nameSuffix}.azurewebsites.net'
     }
   }
 }
@@ -146,6 +154,7 @@ module appSettingsNotifications 'appsettings.bicep' = {
       WEBSITE_WEBDEPLOY_USE_SCM: 'true'
       ASPNETCORE_ENVIRONMENT: 'Development'
       ASPNETCORE_HTTPS_PORT: '443'
+      ConnectionStrings__GildedRoseConnectionString: 'User ID=postgres;Password=replaceme;Host=pgsql-${nameSuffix}.postgres.database.azure.com;Port=5432;Database=gildedrose;Pooling=true;'
     }
   }
 }
