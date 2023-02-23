@@ -13,22 +13,51 @@ public static class ShoppingCart
     public static void ConfigureShoppingCartEndpoints(this WebApplication application)
     {
         var basketGroup = application.MapGroup("Basket");
-        
+
         basketGroup.MapGet("/{customerNumber}", GetBasket);
         basketGroup.MapPost("/{customerNumber}", AddProduct);
-        //
-        // basketGroup.MapPost("/{customerId}/checkout", CheckoutBasket);
+
+        basketGroup.MapPost("/{customerId}/checkout", CheckoutBasket);
+    }
+
+    private static async Task<IResult> CheckoutBasket(
+        string customerNumber,
+        [FromServices] ShoppingCartDbContext db)
+    {
+        // Checkout
+        var shoppingCart = await db.Carts.FirstOrDefaultAsync(c => c.CustomerNumber == customerNumber);
+
+        if (shoppingCart == null || shoppingCart.Items.Count == 0)
+        {
+            return Results.BadRequest("Unable to checkout basket, customer currently doesn't have one");
+        }
+
+        db.Carts.Remove(shoppingCart);
+        
+        // Create order
+        // var createOrderRequest = new CreateOrderRequest();
+        // http client to the monolith
+        // send createOrderRequest to monolith using httpClient
+        // Profit...
+        
+        // Notify customer
+
+        await db.SaveChangesAsync();
+        
+        
+
+        return Results.Ok();
     }
 
     private static async Task<IResult> AddProduct(
-        string customerNumber, 
+        string customerNumber,
         string productCode,
         [FromServices] ShoppingCartDbContext db)
     {
         var cart = await db.Carts
             .Include(c => c.Items)
             .FirstOrDefaultAsync(c => c.CustomerNumber == customerNumber);
-        
+
         if (cart == null)
         {
             cart = new Cart
@@ -60,7 +89,7 @@ public static class ShoppingCart
     }
 
     private static async Task<GetBasketWebResponse> GetBasket(
-        string customerNumber, 
+        string customerNumber,
         [FromServices] ShoppingCartDbContext db)
     {
         var shoppingCart = await db
@@ -82,7 +111,7 @@ public static class ShoppingCart
                 ProductCode = i.ProductCode
             }).ToList()
         };
-        
+
         return response;
     }
 }

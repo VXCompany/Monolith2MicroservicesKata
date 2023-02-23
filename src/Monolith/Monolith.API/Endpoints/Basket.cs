@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Monolith.API.WebResponses;
 using Monolith.Integration;
+using Monolith.OrderManagement.UseCases.CreateOrderUseCase;
 using Monolith.ShoppingCart.UseCases.AddItemToShoppingCartUseCase;
 using Monolith.ShoppingCart.UseCases.GetShoppingCartUseCase;
+using Warehouse.Infra.Data;
+using CartItem = Monolith.API.WebResponses.CartItem;
 
 namespace Monolith.API.Endpoints;
 
@@ -15,6 +18,18 @@ public static class Basket
         basketGroup.MapPost("/{customerNumber}", AddProduct);
 
         basketGroup.MapPost("/{customerNumber}/checkout", CheckoutBasket);
+
+        basketGroup.MapPost("/{customerNumber}/order", CreateOrder);
+    }
+
+    private static async Task<IResult> CreateOrder(
+        [FromBody] Cart cart,
+        [FromServices] CreateOrderUseCase useCase)
+    {
+        var request = new CreateOrderRequest(cart);
+        await useCase.CreateOrder(request);
+        
+        return Results.Ok();
     }
 
     private static async Task<IResult> CheckoutBasket(string customerNumber, CheckoutBasketService checkoutBasketService)
