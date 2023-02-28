@@ -7,11 +7,11 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:
-  push:
-    branches:
-      - 'team2'
-    paths:
-      - 'src/ApiGateway/**'
+  # push:
+  #   branches:
+  #     - 'team2'
+  #   paths:
+  #     - 'src/ApiGateway/**'
   workflow_dispatch:
 
 permissions:

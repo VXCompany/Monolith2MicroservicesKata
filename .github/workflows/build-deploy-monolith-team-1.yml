@@ -7,11 +7,11 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 on:
-  push:
-    branches:
-      - 'team1'
-    paths:
-      - 'src/Monolith/**'
+  # push:
+  #   branches:
+  #     - 'team1'
+  #   paths:
+  #     - 'src/Monolith/**'
   workflow_dispatch:
 
 permissions:
